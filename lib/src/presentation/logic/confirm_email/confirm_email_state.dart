@@ -1,3 +1,5 @@
+import 'package:carrive_app/src/data/models/user.dart';
+
 class ConfirmEmailState {}
 
 class ConfirmEmailInitial extends ConfirmEmailState {}
@@ -8,7 +10,11 @@ class ConfirmEmailLoading extends ConfirmEmailState {
   ConfirmEmailLoading({required this.message});
 }
 
-class ConfirmEmailSuccess extends ConfirmEmailState {}
+class ConfirmEmailSuccess extends ConfirmEmailState {
+  final User user;
+
+  ConfirmEmailSuccess({required this.user});
+}
 
 class ConfirmEmailError extends ConfirmEmailState {
   final String message;

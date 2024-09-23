@@ -1,3 +1,4 @@
+import 'package:carrive_app/src/data/models/user.dart';
 import 'package:carrive_app/src/presentation/logic/new_password/new_pass_cubit.dart';
 import 'package:carrive_app/src/presentation/logic/new_password/new_pass_state.dart';
 import 'package:carrive_app/src/presentation/screens/login_screen.dart';
@@ -16,12 +17,13 @@ import '../../utils/widgets/custom_buttons.dart';
 import '../../utils/widgets/custom_textfield.dart';
 
 class NewPasswordScreen extends StatelessWidget {
-  const NewPasswordScreen({super.key});
+  final User user;
+  const NewPasswordScreen({required this.user, super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => NewPasswordCubit(),
+      create: (context) => NewPasswordCubit(user: user),
       child: BlocConsumer<NewPasswordCubit, NewPasswordState>(
         listener: (context, state) {
           if (state is NewPasswordSuccess) {

@@ -1,3 +1,5 @@
+import 'package:carrive_app/src/data/models/user.dart';
+import 'package:carrive_app/src/data/services/auth_services.dart';
 import 'package:carrive_app/src/presentation/logic/login/login_state.dart';
 import 'package:carrive_app/src/utils/constants/enums.dart';
 import 'package:flutter/material.dart';
@@ -54,19 +56,32 @@ class LoginCubit extends Cubit<LoginState> {
     ));
   }
 
-  void login() {
+  Future<void> login() async {
     // Get the email and password from the TextEditingControllers
     final email = emailController.text;
     final password = passwordController.text;
 
     if (email.isEmpty || password.isEmpty) {
-      emit(LoginError());
+      emit(LoginError(message: "Input all fields"));
     } else if (validateEmail(email) == ValidationType.valid &&
         validatePassword(password) == ValidationType.valid) {
       emit(LoginLoading());
-      Future.delayed(const Duration(seconds: 3), () {
-        emit(LoginSuccess());
-      });
+      try {
+        // Call the login method from the AuthService
+        User user = await AuthService.login(
+          email: email,
+          password: password,
+        );
+        if (user.isRegister == true) {
+          emit(LoginSuccess(user: user));
+        } else {
+          // Send User to Confirm Email Screen to confirm their email.
+
+          emit(LoginError(message: "User not registered to confirm email"));
+        }
+      } catch (e) {
+        emit(LoginError(message: e.toString()));
+      }
     } else {
       emit(LoginInvalid(
         emailValidationType: validateEmail(email),

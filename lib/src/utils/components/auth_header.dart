@@ -21,22 +21,21 @@ class AuthHeader extends StatelessWidget {
       children: [
         SvgPicture.asset(
           'assets/icons/Logo.svg',
-          width: 50.w,
-          height: 50.h,
+          width: 64.w,
+          height: 64.h,
         ),
-        const Spacing(height: 20),
+        const Spacing(height: 22),
         Column(
           children: [
             Text(
               title,
-              style: AppTextStyles.h5,
+              style: AppTextStyles.h4,
             ),
-            const Spacing(height: 4),
+            const Spacing(height: 6),
             Text(
               subtitle,
               style: AppTextStyles.body3.copyWith(
                 color: AppColors.black_700,
-                fontSize: 13.sp,
               ),
               textAlign: TextAlign.center,
             ),

@@ -1,3 +1,7 @@
+import 'dart:developer';
+
+import 'package:carrive_app/src/data/models/user.dart';
+import 'package:carrive_app/src/data/services/auth_services.dart';
 import 'package:carrive_app/src/presentation/logic/new_password/new_pass_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,7 +11,8 @@ import '../../../utils/constants/enums.dart';
 class NewPasswordCubit extends Cubit<NewPasswordState> {
   TextEditingController newPasswordController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
-  NewPasswordCubit() : super(NewPasswordInitial());
+  final User user;
+  NewPasswordCubit({required this.user}) : super(NewPasswordInitial());
 
   // Create a function to validate password
   ValidationType validatePassword(String password) {
@@ -41,7 +46,7 @@ class NewPasswordCubit extends Cubit<NewPasswordState> {
         confirmPasswordValidationType: confirmPasswordValidationType));
   }
 
-  void resetPassword() {
+  void resetPassword() async {
     final newPassword = newPasswordController.text;
     final confirmPassword = confirmPasswordController.text;
     if (newPassword.isEmpty || confirmPassword.isEmpty) {
@@ -52,9 +57,18 @@ class NewPasswordCubit extends Cubit<NewPasswordState> {
       return;
     } else {
       emit(NewPasswordLoading());
-      Future.delayed(const Duration(seconds: 3), () {
+      try {
+        // Call the API to reset the password
+        await AuthService.resetPasswords(
+          userId: user.id,
+          password: newPassword,
+          confirmPassword: confirmPassword,
+        );
         emit(NewPasswordSuccess());
-      });
+      } catch (e) {
+        emit(NewPasswordError(message: e.toString()));
+        return;
+      }
     }
   }
 

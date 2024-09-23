@@ -14,4 +14,8 @@ class ForgotPasswordValid extends ForgotPasswordState {
   ForgotPasswordValid({required this.emailValidationType});
 }
 
-class ForgotPasswordError extends ForgotPasswordState {}
+class ForgotPasswordError extends ForgotPasswordState {
+  final String message;
+
+  ForgotPasswordError({required this.message});
+}

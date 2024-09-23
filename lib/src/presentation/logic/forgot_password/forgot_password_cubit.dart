@@ -1,3 +1,4 @@
+import 'package:carrive_app/src/data/services/auth_services.dart';
 import 'package:carrive_app/src/presentation/logic/forgot_password/forgot_password_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,14 +29,21 @@ class ForgotPasswordCubit extends Cubit<ForgotPasswordState> {
     ));
   }
 
-  void forgotPassword() {
+  void forgotPassword() async {
     final email = emailController.text;
-    if (email.isEmpty) {
-      emit(ForgotPasswordError());
+    if (email.isEmpty || validateEmail(email) == ValidationType.invalid) {
+      emit(ForgotPasswordError(message: "Please input a valid email"));
       return;
     } else if (validateEmail(email) == ValidationType.valid) {
       emit(ForgotPasswordLoading());
-      // Check if the email is in our database
+      // Check if the email is in our database and sends code
+      try {
+        await AuthService.receiveResetCode(email: email);
+        emit(ForgotPasswordSuccess());
+      } catch (e) {
+        emit(ForgotPasswordError(message: e.toString()));
+        return;
+      }
 
       // Call the API to send the email
       Future.delayed(const Duration(seconds: 3), () {

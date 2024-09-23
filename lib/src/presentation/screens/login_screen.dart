@@ -1,7 +1,6 @@
-import 'dart:developer';
-
 import 'package:carrive_app/src/presentation/logic/login/login_cubit.dart';
 import 'package:carrive_app/src/presentation/logic/login/login_state.dart';
+import 'package:carrive_app/src/presentation/root/root_screen.dart';
 import 'package:carrive_app/src/presentation/screens/forgot_pass_screen.dart';
 import 'package:carrive_app/src/utils/app_navigator.dart';
 import 'package:carrive_app/src/utils/components/auth_header.dart';
@@ -29,13 +28,17 @@ class LoginScreen extends StatelessWidget {
       child: BlocConsumer<LoginCubit, LoginState>(
         listener: (context, state) {
           if (state is LoginSuccess) {
-            log("Successfully logged in");
             // Navigate to the next screen
+            AppNavigator.pushReplacement(
+                context,
+                RootScreen(
+                  user: state.user,
+                ));
           } else if (state is LoginError) {
             // Show error message
             CustomToast.showUserTypeToast(
               type: ToastType.error,
-              message: "Please input all fields",
+              message: state.message,
             );
           }
         },
@@ -67,9 +70,9 @@ class LoginScreen extends StatelessWidget {
                               const AuthHeader(
                                 title: "Welcome Back",
                                 subtitle:
-                                    "To continue riding in CARRIVE  and connecting, please  input your personal information",
+                                    "To continue riding with CARRIVE  and connecting, please input your personal information",
                               ),
-                              const Spacing(height: 20),
+                              const Spacing(height: 24),
                               Form(
                                 child: Column(
                                   children: [
@@ -84,7 +87,7 @@ class LoginScreen extends StatelessWidget {
                                           ? state.emailValidationType
                                           : null,
                                     ),
-                                    const Spacing(height: 12),
+                                    const Spacing(height: 14),
                                     CustomTextField(
                                       label: 'Password',
                                       hint: '********',
@@ -99,7 +102,7 @@ class LoginScreen extends StatelessWidget {
                                   ],
                                 ),
                               ),
-                              const Spacing(height: 20),
+                              const Spacing(height: 22),
                               Align(
                                 alignment: Alignment.topRight,
                                 child: RichText(
@@ -120,7 +123,7 @@ class LoginScreen extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              const Spacing(height: 10),
+                              const Spacing(height: 14),
                               CustomButton(
                                 onTap: () {
                                   cubit.login();

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:carrive_app/src/data/models/user.dart';
+import 'package:carrive_app/src/data/services/auth_services.dart';
 import 'package:carrive_app/src/presentation/logic/confirm_email/confirm_email_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -47,7 +48,7 @@ class ConfirmEmailCubit extends Cubit<ConfirmEmailState> {
     return "$minutes:$secs";
   }
 
-  void confirmEmail() {
+  Future<void> confirmEmail() async {
     final code = confirmEmailController.text;
     if (code.isEmpty || code.length != 5) {
       emit(ConfirmEmailError(message: "Fill the boxes"));
@@ -56,17 +57,15 @@ class ConfirmEmailCubit extends Cubit<ConfirmEmailState> {
     emit(ConfirmEmailLoading(message: 'Confirming Email'));
     // Call the API to confirm the email
     try {
-      // await AuthServices.confirmEmail(user.email, code);
+      User user = await AuthService.confirmEmail(code);
+      if (user.isRegister == true) {
+        myTimer.cancel();
+        emit(ConfirmEmailSuccess(user: user));
+      } else {
+        emit(ConfirmEmailError(message: "Could not validate user"));
+      }
     } catch (e) {
       emit(ConfirmEmailError(message: e.toString()));
     }
-    // Future.delayed(const Duration(seconds: 3), () {
-    //   // If the email is confirmed successfully
-    //   if (code == "123456") {
-    //     emit(ConfirmEmailSuccess());
-    //   } else {
-    //     emit(ConfirmEmailError(message: 'Invalid Code'));
-    //   }
-    // });
   }
 }

@@ -6,7 +6,7 @@ class APIService {
   static final APIService instance = APIService._();
 
   String get baseUrl {
-    return 'https://72d8-102-244-45-6.ngrok-free.app';
+    return 'https://dec8-41-202-219-169.ngrok-free.app';
   }
 
   Future<Response> request(
@@ -20,7 +20,7 @@ class APIService {
       final dio = Dio(
         BaseOptions(
           baseUrl: baseUrl,
-          contentType: contentType ?? Headers.formUrlEncodedContentType,
+          contentType: contentType ?? Headers.jsonContentType,
           // headers: {
           //   HttpHeaders.authorizationHeader: 'Bearer $token',
           // },

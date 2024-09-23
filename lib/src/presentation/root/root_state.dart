@@ -1,19 +1,19 @@
 import 'package:carrive_app/src/utils/constants/enums.dart';
 
-class NavigationState {
+class RootState {
   final int index;
   final NavbarItem item;
 
-  NavigationState({
+  RootState({
     required this.index,
     required this.item,
   });
 
-  NavigationState copyWith({
+  RootState copyWith({
     int? index,
     NavbarItem? item,
   }) {
-    return NavigationState(
+    return RootState(
       index: index ?? this.index,
       item: item ?? this.item,
     );

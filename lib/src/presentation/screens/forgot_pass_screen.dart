@@ -36,7 +36,7 @@ class ForgotPasswordScreen extends StatelessWidget {
               // Show an error message
               CustomToast.showUserTypeToast(
                 type: ToastType.error,
-                message: "Please input a valid email",
+                message: state.message,
               );
             }
           },
@@ -88,14 +88,14 @@ class ForgotPasswordScreen extends StatelessWidget {
                                     ],
                                   ),
                                 ),
-                                const Spacing(height: 20),
+                                const Spacing(height: 22),
                                 CustomButton(
                                   onTap: () {
                                     cubit.forgotPassword();
                                   },
                                   label: 'Receive Code',
                                 ),
-                                const Spacing(height: 20),
+                                const Spacing(height: 22),
                               ],
                             ),
                           ),

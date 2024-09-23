@@ -10,31 +10,37 @@ class CustomButton extends StatelessWidget {
     this.textColor,
     required this.onTap,
     required this.label,
+    this.isMedium,
   });
 
   final Color? bgcolor, textColor;
   final Function() onTap;
   final String label;
+  final bool? isMedium;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        height: 40.h,
+        height: (isMedium ?? false) ? 32.h : 46.h,
         padding: EdgeInsets.symmetric(horizontal: 22.w),
         decoration: BoxDecoration(
           color: bgcolor ?? AppColors.primarySource,
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(8.r),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
               label,
-              style: AppTextStyles.body1.copyWith(
-                color: textColor ?? AppColors.white,
-              ),
+              style: (isMedium ?? false)
+                  ? AppTextStyles.caption1.copyWith(
+                      color: textColor ?? AppColors.white,
+                    )
+                  : AppTextStyles.body1.copyWith(
+                      color: textColor ?? AppColors.white,
+                    ),
             ),
           ],
         ),

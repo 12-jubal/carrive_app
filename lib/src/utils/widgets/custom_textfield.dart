@@ -99,8 +99,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
                       widget.obscureText == true
                           ? "assets/icons/eye_on.svg"
                           : "assets/icons/eye_off.svg",
-                      height: 18.h,
-                      width: 18.w,
+                      height: 20.h,
+                      width: 20.w,
                       colorFilter: const ColorFilter.mode(
                         AppColors.black_500,
                         BlendMode.srcIn,
@@ -109,7 +109,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                   )
                 : null,
             enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8.dm),
+              borderRadius: BorderRadius.circular(8.r),
               borderSide: BorderSide.none,
             ),
             focusedBorder: OutlineInputBorder(
@@ -117,7 +117,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                 color: AppColors.primary_700,
               ),
               borderRadius: BorderRadius.all(
-                Radius.circular(8.dm),
+                Radius.circular(8.r),
               ),
             ),
             errorBorder: widget.validationType == ValidationType.invalid
@@ -126,12 +126,12 @@ class _CustomTextFieldState extends State<CustomTextField> {
                       color: AppColors.red_700,
                     ),
                     borderRadius: BorderRadius.all(
-                      Radius.circular(8.dm),
+                      Radius.circular(8.r),
                     ),
                   )
                 : null,
             contentPadding:
-                EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
+                EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
           ),
         ),
       ],
@@ -167,11 +167,11 @@ class CustomPinput extends StatelessWidget {
             controller: pinController,
             defaultPinTheme: PinTheme(
               width: 54.w,
-              padding: EdgeInsets.symmetric(vertical: 10.h),
+              padding: EdgeInsets.symmetric(vertical: 12.h),
               textStyle: AppTextStyles.body2,
               decoration: BoxDecoration(
                 color: AppColors.primary_100,
-                borderRadius: BorderRadius.circular(8.dm),
+                borderRadius: BorderRadius.circular(8.r),
                 border: Border.all(
                   color: AppColors.primary_100,
                 ),
@@ -179,18 +179,16 @@ class CustomPinput extends StatelessWidget {
             ),
             focusedPinTheme: PinTheme(
               width: 54.w,
-              padding: EdgeInsets.symmetric(vertical: 10.h),
+              padding: EdgeInsets.symmetric(vertical: 12.h),
               textStyle: AppTextStyles.body2,
               decoration: BoxDecoration(
                 color: AppColors.primary_100,
-                borderRadius: BorderRadius.circular(8.dm),
+                borderRadius: BorderRadius.circular(8.r),
                 border: Border.all(
                   color: AppColors.primary_700,
                 ),
               ),
             ),
-
-            // Add the named parameter 'androidSmsAutofillMethod'
           ),
         ),
       ],
