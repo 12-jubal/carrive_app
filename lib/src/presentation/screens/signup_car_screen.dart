@@ -90,7 +90,7 @@ class SignupCarScreen extends StatelessWidget {
                                     ? 'Enjoy riding with CARRIVE . To enjoy our free services, please input your personal information.'
                                     : 'Enjoy creating rides with CARRIVE . To enjoy our services, please input the correct information.',
                               ),
-                              const Spacing(height: 20),
+                              const Spacing(height: 22),
                               Form(
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -108,7 +108,7 @@ class SignupCarScreen extends StatelessWidget {
                                       onChanged: cubit.onCarModelSelected,
                                       selectedValue: carModel,
                                     ),
-                                    const Spacing(height: 12),
+                                    const Spacing(height: 14),
                                     CustomTextField(
                                       label: 'Car Matriculation',
                                       hint: 'ONT-123-456',
@@ -117,7 +117,7 @@ class SignupCarScreen extends StatelessWidget {
                                           cubit.carMatriculeController,
                                       validationType: null,
                                     ),
-                                    const Spacing(height: 12),
+                                    const Spacing(height: 14),
                                     CustomTextField(
                                       label: 'Car ID Number',
                                       hint: '123456789',
@@ -127,13 +127,13 @@ class SignupCarScreen extends StatelessWidget {
                                           cubit.carIdController,
                                       validationType: null,
                                     ),
-                                    const Spacing(height: 12),
+                                    const Spacing(height: 14),
                                     // Select Colors
                                     CarColorSelector(
                                       onTap: cubit.onCarColorSelected,
                                       selectedColor: selectedColor,
                                     ),
-                                    const Spacing(height: 20),
+                                    const Spacing(height: 22),
                                     if (userType == UserType.driver)
                                       CustomButton(
                                         onTap: () => cubit.driverSignup(
@@ -146,7 +146,7 @@ class SignupCarScreen extends StatelessWidget {
                                     else
                                       const SizedBox(),
 
-                                    const Spacing(height: 20),
+                                    const Spacing(height: 22),
                                   ],
                                 ),
                               ),

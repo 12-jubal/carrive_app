@@ -1,5 +1,6 @@
-import 'package:carrive_app/src/presentation/naviagation/navigation_cubit.dart';
-import 'package:carrive_app/src/presentation/naviagation/navigation_state.dart';
+import 'package:carrive_app/src/data/models/user.dart';
+import 'package:carrive_app/src/presentation/root/root_cubit.dart';
+import 'package:carrive_app/src/presentation/root/root_state.dart';
 import 'package:carrive_app/src/presentation/screens/booking_screen.dart';
 import 'package:carrive_app/src/presentation/screens/chat_screen.dart';
 import 'package:carrive_app/src/presentation/screens/explore_screen.dart';
@@ -12,7 +13,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class RootScreen extends StatefulWidget {
-  const RootScreen({super.key});
+  final User user;
+  const RootScreen({
+    required this.user,
+    super.key,
+  });
 
   @override
   State<RootScreen> createState() => _RootScreenState();
@@ -22,21 +27,31 @@ class _RootScreenState extends State<RootScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => NavigationCubit(),
-      child: BlocConsumer<NavigationCubit, NavigationState>(
+      create: (context) => RootCubit(user: widget.user),
+      child: BlocConsumer<RootCubit, RootState>(
         listener: (context, state) {},
         builder: (context, state) {
-          final cubit = context.read<NavigationCubit>();
+          final cubit = context.read<RootCubit>();
           return Scaffold(
             body: state.item == NavbarItem.explore
-                ? const ExploreScreen()
+                ? ExploreScreen(
+                    user: widget.user,
+                  )
                 : state.item == NavbarItem.chat
-                    ? const ChatScreen()
+                    ? ChatScreen(
+                        user: widget.user,
+                      )
                     : state.item == NavbarItem.bookings
-                        ? const BookingScreen()
+                        ? BookingScreen(
+                            user: widget.user,
+                          )
                         : state.item == NavbarItem.profile
-                            ? const ProfileScreen()
-                            : const ExploreScreen(),
+                            ? ProfileScreen(
+                                user: widget.user,
+                              )
+                            : ExploreScreen(
+                                user: widget.user,
+                              ),
             bottomNavigationBar: BottomNavigationBar(
               elevation: 2.0,
               currentIndex: state.index,

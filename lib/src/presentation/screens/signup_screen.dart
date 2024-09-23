@@ -99,7 +99,7 @@ class SignupScreen extends StatelessWidget {
                                     ? 'Enjoy riding with CARRIVE . To enjoy our free services, please input your personal information.'
                                     : 'Enjoy creating rides with CARRIVE . To enjoy our services, please input the correct information.',
                               ),
-                              const Spacing(height: 20),
+                              const Spacing(height: 24),
                               Form(
                                 child: Column(
                                   children: [
@@ -113,7 +113,7 @@ class SignupScreen extends StatelessWidget {
                                           ? state.nameValidationType
                                           : null,
                                     ),
-                                    const Spacing(height: 12),
+                                    const Spacing(height: 14),
                                     CustomTextField(
                                       label: 'Email',
                                       hint: 'johndoe@gmail.com',
@@ -125,7 +125,7 @@ class SignupScreen extends StatelessWidget {
                                           ? state.emailValidationType
                                           : null,
                                     ),
-                                    const Spacing(height: 12),
+                                    const Spacing(height: 14),
                                     CustomTextField(
                                       label: 'Password',
                                       hint: '********',
@@ -137,7 +137,7 @@ class SignupScreen extends StatelessWidget {
                                           ? state.passwordValidationType
                                           : null,
                                     ),
-                                    const Spacing(height: 12),
+                                    const Spacing(height: 14),
                                     CustomTextField(
                                       label: 'Confirm Password',
                                       hint: '********',
@@ -149,7 +149,7 @@ class SignupScreen extends StatelessWidget {
                                           ? state.confirmPasswordValidationType
                                           : null,
                                     ),
-                                    const Spacing(height: 20),
+                                    const Spacing(height: 22),
                                     if (userType == UserType.passenger)
                                       CustomButton(
                                         onTap: () {
@@ -164,7 +164,7 @@ class SignupScreen extends StatelessWidget {
                                         },
                                         label: 'Continue',
                                       ),
-                                    const Spacing(height: 10),
+                                    const Spacing(height: 12),
                                     RichText(
                                       text: TextSpan(
                                         text: 'Already have an account? ',
@@ -189,7 +189,7 @@ class SignupScreen extends StatelessWidget {
                                         ],
                                       ),
                                     ),
-                                    const Spacing(height: 20),
+                                    const Spacing(height: 22),
                                   ],
                                 ),
                               ),

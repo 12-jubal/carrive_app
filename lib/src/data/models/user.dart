@@ -6,6 +6,7 @@ class User {
   late final String email;
   late final String? token;
   late final bool isActive;
+  late final bool isRegister;
   late final bool isConnected;
   // late final DateTime? registeredAt;
   late final UserType userType;
@@ -21,6 +22,7 @@ class User {
     required this.token,
     required this.isActive,
     required this.isConnected,
+    required this.isRegister,
     // required this.registeredAt,
     required this.userType,
     // this.carId,
@@ -44,6 +46,7 @@ class User {
     token = json['token'];
     isActive = json['isActive'];
     isConnected = json['isConnected'];
+    isRegister = json['isRegister'];
     // registeredAt = DateTime.parse(json['registeredAt']);
     userType = typeFromString(json['userType']);
     // carId = json['car_id'];
@@ -60,6 +63,7 @@ class User {
     data['token'] = token;
     data['isActive'] = isActive;
     data['isConnected'] = isConnected;
+    data['isRegister'] = isRegister;
     // data['registeredAt'] = registeredAt;
     data['userType'] = userType;
     // data['car_id'] = carId;

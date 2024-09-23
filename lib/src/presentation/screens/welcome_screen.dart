@@ -37,8 +37,8 @@ class WelcomeScreen extends StatelessWidget {
                 children: [
                   SvgPicture.asset(
                     'assets/icons/Logo_name.svg',
-                    width: 70.w,
-                    height: 70.h,
+                    width: 85.w,
+                    height: 85.h,
                   ),
                   const Spacing(height: 20),
                   Text(

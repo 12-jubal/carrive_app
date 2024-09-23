@@ -1,6 +1,8 @@
 import 'package:carrive_app/src/data/models/user.dart';
 import 'package:carrive_app/src/presentation/logic/confirm_email/confirm_email_cubit.dart';
 import 'package:carrive_app/src/presentation/logic/confirm_email/confirm_email_state.dart';
+import 'package:carrive_app/src/presentation/root/root_screen.dart';
+import 'package:carrive_app/src/utils/app_navigator.dart';
 import 'package:carrive_app/src/utils/components/auth_header.dart';
 import 'package:carrive_app/src/utils/components/custom_screen.dart';
 import 'package:carrive_app/src/utils/constants/enums.dart';
@@ -34,15 +36,17 @@ class ConfirmEmailScreen extends StatelessWidget {
               message: "Email confirmed successfully",
             );
             // Redirect to the next page
-            // AppNavigator.pushReplacement(
-            //   context,
-            //   const HomeScreen(),
-            // );
+            AppNavigator.pushReplacement(
+              context,
+              RootScreen(
+                user: state.user,
+              ),
+            );
           } else if (state is ConfirmEmailError) {
             // Show an error message
             CustomToast.showUserTypeToast(
               type: ToastType.error,
-              message: "An error occurred while confirming the email",
+              message: state.message,
             );
           }
         }),
@@ -69,9 +73,10 @@ class ConfirmEmailScreen extends StatelessWidget {
                         ),
                         child: Column(
                           children: [
-                            const AuthHeader(
+                            AuthHeader(
                               title: "Confirm Email",
-                              subtitle: "Please confirm your email address",
+                              subtitle:
+                                  "Please confirm your email address \n ${user.email}",
                             ),
                             const Spacing(height: 8),
                             Text(
@@ -82,7 +87,7 @@ class ConfirmEmailScreen extends StatelessWidget {
                                 color: AppColors.redSource,
                               ),
                             ),
-                            const Spacing(height: 20),
+                            const Spacing(height: 22),
                             CustomPinput(
                               label: 'Confirmation Code',
                               pinController: cubit.confirmEmailController,

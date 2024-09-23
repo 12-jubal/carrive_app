@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:carrive_app/src/data/models/user.dart';
+import 'package:carrive_app/src/data/services/auth_services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -28,6 +30,15 @@ class OTPCubit extends Cubit<OTPState> {
     });
   }
 
+  // We try to initialize once more the timer when the resend button is clicked
+  restartTimer() {
+    emit(OTPLoading(message: 'Resending Code'));
+    Future.delayed(const Duration(seconds: 3), () {
+      remainingSeconds = 600;
+      startTimer();
+    });
+  }
+
   // Helper function to format the time into mm:ss
   String formatTime(int seconds) {
     final minutes = (seconds ~/ 60).toString().padLeft(2, '0');
@@ -35,20 +46,20 @@ class OTPCubit extends Cubit<OTPState> {
     return "$minutes:$secs";
   }
 
-  void verifyOTP() {
+  void verifyOTP() async {
     final otp = otpController.text;
-    if (otp.isEmpty || otp.length != 6) {
-      emit(OTPError());
+    if (otp.isEmpty || otp.length != 5) {
+      emit(OTPError(message: 'Fill in the OTP'));
       return;
     }
-    emit(OTPLoading());
-    Future.delayed(const Duration(seconds: 3), () {
-      if (otp == "123456") {
-        emit(OTPSuccess());
-      } else {
-        emit(OTPError());
-      }
-    });
+    emit(OTPLoading(message: 'Verifying OTP'));
+    try {
+      User user = await AuthService.validateReset(code: otp);
+      myTimer.cancel();
+      emit(OTPSuccess(user: user));
+    } catch (e) {
+      emit(OTPError(message: e.toString()));
+    }
   }
 
   // Dispose of the controller and timer

@@ -23,7 +23,7 @@ class UserTypeCard extends StatelessWidget {
       child: GestureDetector(
         onTap: onTap,
         child: Container(
-          height: 180.h,
+          height: 222.h,
           width: double.infinity,
           padding: EdgeInsets.symmetric(
             horizontal: 14.w,
@@ -62,7 +62,7 @@ class UserTypeCard extends StatelessWidget {
                         ),
                       ),
               ),
-              Image.asset(imageLink, width: 75.w, height: 100.h),
+              Image.asset(imageLink, width: 85.w, height: 116.h),
               Text(
                 label,
                 style: AppTextStyles.body1.copyWith(

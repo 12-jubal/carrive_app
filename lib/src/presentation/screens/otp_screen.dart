@@ -35,13 +35,15 @@ class OTPScreen extends StatelessWidget {
             // Redirect to the next page
             AppNavigator.pushReplacement(
               context,
-              const NewPasswordScreen(),
+              NewPasswordScreen(
+                user: state.user,
+              ),
             );
           } else if (state is OTPError) {
             // Show an error message
             CustomToast.showUserTypeToast(
               type: ToastType.error,
-              message: "Please input a valid OTP",
+              message: state.message,
             );
           }
         }),
@@ -57,7 +59,7 @@ class OTPScreen extends StatelessWidget {
             loadingMessage: "Verifying OTP",
             child: CustomScreen(
               isLoading: state is OTPLoading,
-              loadingMessage: "Verifying OTP",
+              loadingMessage: state is OTPLoading ? state.message : '',
               child: Scaffold(
                 body: SafeArea(
                   child: Stack(
@@ -82,21 +84,29 @@ class OTPScreen extends StatelessWidget {
                               ),
                               const Spacing(height: 8),
                               Text(
-                                "Code Expires in $timeText",
+                                timeText == '00:00'
+                                    ? "Code Expired"
+                                    : "Code Expires in $timeText",
                                 style: AppTextStyles.body2.copyWith(
                                   color: AppColors.redSource,
                                 ),
                               ),
-                              const Spacing(height: 20),
+                              const Spacing(height: 22),
                               CustomPinput(
                                 label: 'OTP Code',
                                 pinController: cubit.otpController,
                               ),
                               const Spacing(height: 40),
                               CustomButton(
-                                label: "Verify OTP",
+                                label: timeText == "00:00"
+                                    ? "Resend Code"
+                                    : "Verify OTP",
                                 onTap: () {
-                                  cubit.verifyOTP();
+                                  if (timeText == "00:00") {
+                                    cubit.restartTimer();
+                                  } else {
+                                    cubit.verifyOTP();
+                                  }
                                 },
                               ),
                             ],

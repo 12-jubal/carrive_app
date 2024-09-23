@@ -1,7 +1,9 @@
+import 'package:carrive_app/src/data/models/user.dart';
 import 'package:flutter/material.dart';
 
 class ChatScreen extends StatelessWidget {
-  const ChatScreen({super.key});
+  final User user;
+  const ChatScreen({super.key, required this.user});
 
   @override
   Widget build(BuildContext context) {
