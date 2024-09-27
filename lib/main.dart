@@ -1,6 +1,7 @@
 import 'package:carrive_app/src/data/models/user.dart';
 import 'package:carrive_app/src/presentation/root/root_screen.dart';
 import 'package:carrive_app/src/utils/constants/enums.dart';
+import 'package:carrive_app/src/utils/style/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'src/presentation/screens/splash_screen.dart';
@@ -25,13 +26,16 @@ class MyApp extends StatelessWidget {
           isActive: true,
           isConnected: true,
           isRegister: true,
-          userType: UserType.passenger,
+          userType: UserType.driver,
         );
         return MaterialApp(
+          theme: ThemeData(
+            scaffoldBackgroundColor: AppColors.white,
+          ),
           debugShowCheckedModeBanner: false,
-          home: SplashScreen(),
+          // home: SplashScreen(),
 
-          // home: RootScreen(user: user),
+          home: RootScreen(user: user),
         );
       },
     );

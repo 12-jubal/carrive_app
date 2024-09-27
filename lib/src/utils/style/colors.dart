@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 class AppColors {
@@ -53,6 +55,18 @@ class AppColors {
   static const Color blue_200 = Color(0xFFCCCCEC);
   static const Color blue_100 = Color(0xFFE5E5F5);
 
+  // Sky Blue Colors
+  static const Color skyBlueSource = Color(0xFF1C96C5);
+  static const Color skyBlue_900 = Color(0xFF33A0CB);
+  static const Color skyBlue_800 = Color(0xFF49ABD1);
+  static const Color skyBlue_700 = Color(0xFF60B6D6);
+  static const Color skyBlue_600 = Color(0xFF77C0DC);
+  static const Color skyBlue_500 = Color(0xFF8DCBE2);
+  static const Color skyBlue_400 = Color(0xFFA4D5E8);
+  static const Color skyBlue_300 = Color(0xFFBBDFEE);
+  static const Color skyBlue_200 = Color(0xFFD2EAF3);
+  static const Color skyBlue_100 = Color(0xFFE8F4F9);
+
   // Red Colors
   static const Color redSource = Color(0xFFE10E0E);
   static const Color red_900 = Color(0xFFE42626);
@@ -67,7 +81,7 @@ class AppColors {
 
   // Green Colors
   static const Color greenSource = Color(0xFF009900);
-  static const Color green_900 = Color(0xFF33A0CB);
+  static const Color green_900 = Color(0xFF1AA31A);
   static const Color green_800 = Color(0xFF33AD33);
   static const Color green_700 = Color(0xFF4DB84D);
   static const Color green_600 = Color(0xFF66C266);
@@ -100,4 +114,22 @@ class AppColors {
   static const Color orange_300 = Color(0xFFFFE4B2);
   static const Color orange_200 = Color(0xFFFFEDCC);
   static const Color orange_100 = Color(0xFFFFF6E5);
+}
+
+Color getRandomColor() {
+  List<Color> colorOptions = [
+    AppColors.primarySource,
+    AppColors.secondarySource,
+    AppColors.greenSource,
+    AppColors.blueSource,
+    AppColors.redSource,
+    AppColors.yellowSource,
+    AppColors.orangeSource,
+    AppColors.skyBlueSource,
+    AppColors.red_900,
+    AppColors.green_900,
+    AppColors.blue_900,
+  ];
+
+  return colorOptions[Random().nextInt(colorOptions.length)];
 }

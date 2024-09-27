@@ -3,7 +3,7 @@ import 'package:carrive_app/src/presentation/root/root_cubit.dart';
 import 'package:carrive_app/src/presentation/root/root_state.dart';
 import 'package:carrive_app/src/presentation/screens/booking_screen.dart';
 import 'package:carrive_app/src/presentation/screens/chat_screen.dart';
-import 'package:carrive_app/src/presentation/screens/explore_screen.dart';
+import 'package:carrive_app/src/presentation/screens/explore/explore_screen.dart';
 import 'package:carrive_app/src/presentation/screens/profile_screen.dart';
 import 'package:carrive_app/src/utils/constants/enums.dart';
 import 'package:carrive_app/src/utils/style/colors.dart';
