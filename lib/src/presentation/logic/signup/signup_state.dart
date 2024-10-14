@@ -99,10 +99,13 @@ class CarRegister extends SignupState {
   final String email;
   @override
   final String password;
+  @override
+  final String confirmPassword;
   const CarRegister({
     required this.userType,
     required this.name,
     required this.email,
     required this.password,
+    required this.confirmPassword,
   });
 }

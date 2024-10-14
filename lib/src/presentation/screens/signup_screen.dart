@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:carrive_app/l10n/app_localizations.dart';
 import 'package:carrive_app/src/presentation/screens/confirm_email_screen.dart';
 import 'package:carrive_app/src/presentation/screens/signup_car_screen.dart';
 import 'package:carrive_app/src/utils/widgets/custom_toast.dart';
@@ -29,8 +30,10 @@ class SignupScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final locale = AppLocalizations.of(context)!;
     return BlocProvider(
-      create: (context) => SignupCubit(userType),
+      create: (context) =>
+          SignupCubit(userType: userType, localizations: locale),
       child: BlocConsumer<SignupCubit, SignupState>(
         listener: (context, state) {
           if (state is CarRegister) {
@@ -41,6 +44,7 @@ class SignupScreen extends StatelessWidget {
                 name: state.name,
                 email: state.email,
                 password: state.password,
+                confirmPassword: state.confirmPassword,
               ),
             );
           } else if (state is SignupError) {
@@ -153,7 +157,9 @@ class SignupScreen extends StatelessWidget {
                                     if (userType == UserType.passenger)
                                       CustomButton(
                                         onTap: () {
-                                          cubit.signup(userType: userType);
+                                          cubit.signup(
+                                            userType: userType,
+                                          );
                                         },
                                         label: 'Sign Up',
                                       )

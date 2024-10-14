@@ -1,0 +1,43 @@
+{
+    "@_GENERAL": {},
+    "back" : "Back",
+    "confirm" : "Confirm",
+    "selectOption" : "Select an option",
+
+    "@_WELCOME_PAGE": {},
+    "chooseHowToUseApp" : "Choose how you plan on using CARRIVE",
+    "driver" : "Driver",
+    "passenger" : "Passenger",
+    "selectUserType" : "Please select a user type",
+    "continueText" : "Continue",
+    "alreadyHaveAnAccount" : "Already have an account? ",
+    "login" : "Login",
+
+    "@_SIGNUP_PAGE|LOGIN_PAGE": {},
+    "inputFields" : "Please fill in all the fields",
+    "unExpectedError" : "An unexpected error occurred",
+    
+    "@_PROFILE_PAGE": {},
+    "profile" : "Profile",
+    "appTheme" : "App Theme",
+    "loadingProfile" : "Loading profile...",
+    "language" : "Language",
+    "myCars" : "My Cars",
+    "myDocuments" : "My Documents",
+    "bankInformation" : "Bank Information",
+    "notifications" : "Notifications",
+    "signOut" : "Sign Out",
+
+    "@_MYDOCUMENTS_PAGE": {},
+    "documents" : "Documents",
+    "loadingDocuments" : "Loading documents...",
+    "driverLicense" : "Driver's License",
+    "proofOfIdentity" : "Proof of Identity",
+    "documentExplanation" : "These are the various documents you need in order to have your driver’s badge and post rides for passengers to book and pay you.",
+    "uploadInstruction" : "Click here| to upload your file",
+    "supportedFormat" : "Supported Format : PNG, JPG, JPEG, PDF (10 MB max)",
+
+    "@_UPLOAD_DOCUMENTS_PAGE": {},
+    "uploadImage" : "Upload Image",
+    "uploadFile" : "Upload File"
+}

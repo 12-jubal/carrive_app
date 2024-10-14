@@ -139,6 +139,91 @@ class _CustomTextFieldState extends State<CustomTextField> {
   }
 }
 
+class CustomSearchField extends StatefulWidget {
+  const CustomSearchField({
+    super.key,
+    required this.hint,
+    required this.onChanged,
+    required this.textEditingController,
+  });
+
+  final String hint;
+  final ValueChanged<String> onChanged;
+  final TextEditingController textEditingController;
+
+  @override
+  State<CustomSearchField> createState() => _CustomSearchFieldState();
+}
+
+class _CustomSearchFieldState extends State<CustomSearchField> {
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      style: AppTextStyles.body2,
+      onChanged: widget.onChanged,
+      controller: widget.textEditingController,
+      decoration: InputDecoration(
+        filled: true,
+        fillColor: AppColors.primary_100,
+        hintText: widget.hint,
+        hintStyle: AppTextStyles.body2.copyWith(
+          color: AppColors.black_500,
+        ),
+        prefixIconConstraints: BoxConstraints(
+          minWidth: 20.w,
+          minHeight: 20.h,
+        ),
+        prefixIcon: Padding(
+          padding: EdgeInsets.only(left: 16.w, right: 6.w),
+          child: SvgPicture.asset(
+            "assets/icons/search.svg",
+            height: 20.h,
+            width: 20.w,
+            colorFilter: const ColorFilter.mode(
+              AppColors.black_500,
+              BlendMode.srcIn,
+            ),
+          ),
+        ),
+        suffixIconConstraints: BoxConstraints(
+          minWidth: 20.w,
+          minHeight: 20.h,
+        ),
+        suffixIcon: Padding(
+          padding: EdgeInsets.only(left: 6.w, right: 16.w),
+          child: GestureDetector(
+            onTap: () {
+              widget.textEditingController.clear();
+            },
+            child: SvgPicture.asset(
+              "assets/icons/cancel_filled.svg",
+              height: 20.h,
+              width: 20.w,
+              colorFilter: const ColorFilter.mode(
+                AppColors.black_500,
+                BlendMode.srcIn,
+              ),
+            ),
+          ),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8.r),
+          borderSide: BorderSide.none,
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: const BorderSide(
+            color: AppColors.primary_700,
+          ),
+          borderRadius: BorderRadius.all(
+            Radius.circular(8.r),
+          ),
+        ),
+        contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+      ),
+    );
+  }
+}
+
 class CustomPinput extends StatelessWidget {
   const CustomPinput({
     super.key,

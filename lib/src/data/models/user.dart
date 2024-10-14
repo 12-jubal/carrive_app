@@ -39,6 +39,14 @@ class User {
     }
   }
 
+  String typeToString(UserType usertype) {
+    if (usertype == UserType.driver) {
+      return 'DRIVER';
+    } else {
+      return 'PASSENGER';
+    }
+  }
+
   User.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
@@ -56,7 +64,23 @@ class User {
   }
 
   Map<String, dynamic> toJson() {
+    // return {
+    //   'id': id,
+    //   'name': name,
+    //   'email': email,
+    //   'token': token,
+    //   'isActive': isActive,
+    //   'isConnected': isConnected,
+    //   'isRegister': isRegister,
+    //   // 'registeredAt': registeredAt,
+    //   'userType': typeToString(userType),
+    //   // 'car_id': carId,
+    //   // 'car_matricule': carMatricule,
+    //   // 'car_model': carModel,
+    //   // 'car_color': carColor,
+    // };
     final Map<String, dynamic> data = <String, dynamic>{};
+
     data['id'] = id;
     data['name'] = name;
     data['email'] = email;
@@ -65,7 +89,7 @@ class User {
     data['isConnected'] = isConnected;
     data['isRegister'] = isRegister;
     // data['registeredAt'] = registeredAt;
-    data['userType'] = userType;
+    data['userType'] = typeToString(userType);
     // data['car_id'] = carId;
     // data['car_matricule'] = carMatricule;
     // data['car_model'] = carModel;

@@ -126,7 +126,7 @@ class LoginScreen extends StatelessWidget {
                               const Spacing(height: 14),
                               CustomButton(
                                 onTap: () {
-                                  cubit.login();
+                                  cubit.login(context: context);
                                 },
                                 label: 'Login',
                               ),

@@ -6,9 +6,11 @@ class BlocOption extends StatelessWidget {
   const BlocOption({
     super.key,
     required this.options,
+    this.fullSeparator = false,
   });
 
   final List<Widget> options;
+  final bool? fullSeparator;
 
   @override
   Widget build(BuildContext context) {
@@ -22,16 +24,26 @@ class BlocOption extends StatelessWidget {
       // Or don't add spacing and separator if there's only one widget
       if (i != options.length - 1) {
         interleavedWidgets.add(SizedBox(height: 4.h));
-        interleavedWidgets.add(
-          Padding(
-            padding: EdgeInsets.only(left: 60.w),
-            child: const Divider(
+        if (fullSeparator! == true) {
+          interleavedWidgets.add(
+            const Divider(
               color: AppColors.black_500,
-              thickness: 0.5,
+              thickness: 0.4,
             ),
-          ),
-        );
-        interleavedWidgets.add(SizedBox(height: 4.h));
+          );
+          interleavedWidgets.add(SizedBox(height: 4.h));
+        } else {
+          interleavedWidgets.add(
+            Padding(
+              padding: EdgeInsets.only(left: 60.w),
+              child: const Divider(
+                color: AppColors.black_500,
+                thickness: 0.4,
+              ),
+            ),
+          );
+          interleavedWidgets.add(SizedBox(height: 4.h));
+        }
       }
     }
     return Container(
@@ -39,9 +51,9 @@ class BlocOption extends StatelessWidget {
       padding: EdgeInsets.symmetric(vertical: 8.h),
       decoration: ShapeDecoration(
         shape: RoundedRectangleBorder(
-          side: const BorderSide(
-            width: 0.40,
-            color: AppColors.black_700,
+          side: BorderSide(
+            width: 0.4.h,
+            color: AppColors.black_500,
           ),
           borderRadius: BorderRadius.circular(8.r),
         ),

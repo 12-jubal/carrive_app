@@ -53,7 +53,7 @@ class CustomExploreAppbar extends StatelessWidget {
             onTap: onTap,
             child: SvgPicture.asset(
               hasNotification
-                  ? 'assets/icons/notifications_active.svg'
+                  ? 'assets/icons/notifications_unread.svg'
                   : 'assets/icons/notifications.svg',
               height: 26.h,
               width: 26.w,
@@ -62,6 +62,112 @@ class CustomExploreAppbar extends StatelessWidget {
                 BlendMode.srcIn,
               ),
             ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class CustomProfileAppbar extends StatelessWidget {
+  const CustomProfileAppbar({
+    super.key,
+    required this.title,
+    required this.shadow,
+    this.leading,
+    this.onLeadingTap,
+    this.trailing,
+    this.onTrailingTap,
+  });
+
+  final String title;
+  final bool shadow;
+  final Widget? leading, trailing;
+  final Function()? onLeadingTap, onTrailingTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 1.sw,
+      padding: EdgeInsets.symmetric(
+        horizontal: 24.w,
+        vertical: 16.h,
+      ),
+      decoration: shadow
+          ? BoxDecoration(
+              color: AppColors.white,
+              boxShadow: [
+                BoxShadow(
+                  color: AppColors.black_600.withOpacity(0.1),
+                  blurRadius: 2,
+                  offset: const Offset(0, 4),
+                  spreadRadius: 0,
+                ),
+              ],
+            )
+          : const BoxDecoration(
+              color: AppColors.white,
+            ),
+      child: Column(
+        children: [
+          Align(
+            alignment: Alignment.topRight,
+            child: GestureDetector(
+              onTap: onTrailingTap,
+              child: SizedBox(
+                width: 64.w,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    if (trailing != null)
+                      trailing is Text
+                          ? DefaultTextStyle(
+                              style: AppTextStyles.body2.copyWith(
+                                color: AppColors.skyBlueSource,
+                              ),
+                              child: trailing!,
+                            )
+                          : trailing!
+                    else
+                      SizedBox(
+                        width: 64.w,
+                      ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Align(
+            alignment: Alignment.bottomLeft,
+            child: Text(
+              title,
+              style: AppTextStyles.bodyTitle.copyWith(
+                color: AppColors.primarySource,
+              ),
+            ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              GestureDetector(
+                onTap: onLeadingTap,
+                child: SizedBox(
+                  width: 64.w,
+                  child: (leading != null)
+                      ? (leading is Text)
+                          ? DefaultTextStyle(
+                              style: AppTextStyles.body2.copyWith(
+                                color: AppColors.skyBlueSource,
+                              ),
+                              child: leading ?? const SizedBox(),
+                            )
+                          : leading
+                      : SizedBox(
+                          width: 64.w,
+                        ),
+                ),
+              ),
+            ],
           ),
         ],
       ),
@@ -88,7 +194,8 @@ class CustomAppbar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.of(context).size.width,
+      // width: MediaQuery.of(context).size.width,
+      width: 1.sw,
       height: 56.h,
       padding: EdgeInsets.symmetric(
         horizontal: 24.w,
@@ -115,19 +222,26 @@ class CustomAppbar extends StatelessWidget {
           GestureDetector(
             onTap: onLeadingTap,
             child: SizedBox(
-              width: 64.w,
-              child: (leading != null)
-                  ? (leading is Text)
-                      ? DefaultTextStyle(
-                          style: AppTextStyles.body2.copyWith(
-                            color: AppColors.skyBlueSource,
-                          ),
-                          child: leading ?? const SizedBox(),
-                        )
-                      : leading
-                  : SizedBox(
-                      width: 64.w,
+              width: 80.w,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  if (leading != null)
+                    if (leading is Text)
+                      DefaultTextStyle(
+                        style: AppTextStyles.body2.copyWith(
+                          color: AppColors.skyBlueSource,
+                        ),
+                        child: leading ?? const SizedBox(),
+                      )
+                    else
+                      leading ?? const SizedBox()
+                  else
+                    SizedBox(
+                      width: 80.w,
                     ),
+                ],
+              ),
             ),
           ),
           Text(
@@ -139,7 +253,7 @@ class CustomAppbar extends StatelessWidget {
           GestureDetector(
             onTap: onTrailingTap,
             child: SizedBox(
-              width: 64.w,
+              width: 80.w,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
@@ -154,7 +268,7 @@ class CustomAppbar extends StatelessWidget {
                         : trailing!
                   else
                     SizedBox(
-                      width: 64.w,
+                      width: 80.w,
                     ),
                 ],
               ),

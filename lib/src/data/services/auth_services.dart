@@ -19,6 +19,10 @@ class AuthService {
     }
   }
 
+  String get authUrl {
+    return 'https://b6b6-41-202-207-5.ngrok-free.app';
+  }
+
   // Method to login a user
   static Future<User> login({
     required String email,
@@ -30,6 +34,7 @@ class AuthService {
       // Call the API to login the user
       log('Calling API to login user');
       final response = await APIService.instance.request(
+        myBaseUrl: AuthService._().authUrl,
         endpoint: '/auth/login',
         DioMethod.post,
         param: {
@@ -58,8 +63,12 @@ class AuthService {
     required String name,
     required String email,
     required String password,
-    required String confirmPassowrd,
+    required String confirmPassword,
     required UserType userType,
+    String? idCar,
+    String? matriculation,
+    String? color,
+    String? carModel,
   }) async {
     User user;
     APIResponse apiResponse;
@@ -67,14 +76,19 @@ class AuthService {
       // Call the API to register the user
       log('Calling API to register user');
       final response = await APIService.instance.request(
+        myBaseUrl: AuthService._().authUrl,
         endpoint: '/auth/sign-up',
         DioMethod.post,
         param: {
           'name': name,
           'email': email,
           'password': password,
-          'confirmPassword': confirmPassowrd,
+          'confirmPassword': confirmPassword,
           'userType': userTypeToString(userType),
+          'idCar': idCar,
+          'matriculation': matriculation,
+          'color': color,
+          'carModel': carModel,
         },
       );
 
@@ -102,6 +116,7 @@ class AuthService {
       // Call the API to confirm the email
       log('Calling API to confirm email');
       final response = await APIService.instance.request(
+        myBaseUrl: AuthService._().authUrl,
         endpoint: '/auth/valid-register?code=$code',
         DioMethod.post,
       );
@@ -127,6 +142,7 @@ class AuthService {
       // Calling Forgot Password API
       log("Calling Forgot Password API");
       final response = await APIService.instance.request(
+        myBaseUrl: AuthService._().authUrl,
         endpoint: '/auth/forgot-password?email=$email',
         DioMethod.post,
       );
@@ -152,6 +168,7 @@ class AuthService {
       // Call the API to resend the email
       log('Calling API to Validate Reset Code');
       final response = await APIService.instance.request(
+        myBaseUrl: AuthService._().authUrl,
         endpoint: '/auth/validate-reset?code=$code',
         DioMethod.post,
       );
@@ -179,6 +196,7 @@ class AuthService {
       // Call the API to reset the password
       log('Calling API to reset password');
       final response = await APIService.instance.request(
+        myBaseUrl: AuthService._().authUrl,
         endpoint:
             '/auth/reset-password?id=$userId&password=$password&confirm_password=$confirmPassword',
         DioMethod.post,

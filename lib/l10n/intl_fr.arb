@@ -1,0 +1,43 @@
+{
+    "@_GENERAL": {},
+    "back" : "Retour",
+    "confirm" : "Confirmer",
+    "selectOption" : "Sélectionnez une option",
+
+    "@_WELCOME_PAGE": {},
+    "chooseHowToUseApp" : "Choisissez comment vous comptez utiliser CARRIVE",
+    "driver" : "Conducteur",
+    "passenger" : "Passager",
+    "selectUserType" : "Sélectionnez un type d'utilisateur",
+    "continueText" : "Continuer",
+    "alreadyHaveAnAccount" : "Vous avez déjà un compte? ",
+    "login" : "Connexion",
+
+    "@_SIGNUP_PAGE|LOGIN_PAGE": {},
+    "inputFields" : "Veuillez remplir tous les champs",
+    "unExpectedError" : "Une erreur inattendue s'est produite",
+        
+    "@_PROFILE_PAGE": {},
+    "profile" : "Profil",
+    "appTheme" : "Apparence",
+    "loadingProfile" : "Chargement du profil...",
+    "language" : "Langue",
+    "myCars" : "Mes voitures",
+    "myDocuments" : "Mes documents",
+    "bankInformation" : "Informations bancaires",
+    "notifications" : "Notifications",
+    "signOut" : "Déconnexion",
+
+    "@_MYDOCUMENTS_PAGE": {},
+    "documents" : "Documents",
+    "loadingDocuments" : "Chargement des documents...",
+    "driverLicense" : "Permis de conduire",
+    "proofOfIdentity" : "Preuve d'identité",
+    "documentExplanation" : "Ce sont les différents documents dont vous avez besoin pour obtenir votre badge de conducteur et publier des trajets pour que les passagers puissent vous réserver et vous payer.",
+    "uploadInstruction" : "Cliquez ici| pour charger votre fichier",
+    "supportedFormat" : "Format pris en charge : PNG, JPG, JPEG, PDF (10 Mo max)",
+
+    "@_UPLOAD_DOCUMENTS_PAGE": {},
+    "uploadImage" : "Charger une image",
+    "uploadFile" : "Charger un fichier"
+}

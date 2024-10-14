@@ -24,7 +24,8 @@ class LeadingCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 150.h,
-      width: MediaQuery.of(context).size.width,
+      // width: MediaQuery.of(context).size.width,
+      width: 1.sw,
       decoration: BoxDecoration(
         color: bgColor,
         borderRadius: BorderRadius.circular(8.r),

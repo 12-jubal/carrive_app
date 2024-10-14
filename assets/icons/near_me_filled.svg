@@ -1,0 +1,10 @@
+<svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="near_me">
+<mask id="mask0_3369_1048" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="14" height="14">
+<rect id="Bounding box" width="14" height="14" fill="#D9D9D9"/>
+</mask>
+<g mask="url(#mask0_3369_1048)">
+<path id="near_me_2" d="M7.59238 11.7676L6.05325 7.93552L2.22119 6.38531L2.20996 5.79294L11.79 2.19873L8.18461 11.7676H7.59238Z" fill="white"/>
+</g>
+</g>
+</svg>

@@ -59,9 +59,6 @@ class DriverExploreScreen extends StatelessWidget {
                 onTap: () {},
               ),
             ),
-            // const Center(
-            //   child: Text('Explore Screen'),
-            // ),
           ],
         ),
       ),
