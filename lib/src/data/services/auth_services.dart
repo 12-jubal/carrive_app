@@ -20,7 +20,7 @@ class AuthService {
   }
 
   String get authUrl {
-    return 'https://b6b6-41-202-207-5.ngrok-free.app';
+    return 'https://2411-41-202-219-166.ngrok-free.app';
   }
 
   // Method to login a user

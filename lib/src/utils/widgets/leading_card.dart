@@ -23,8 +23,6 @@ class LeadingCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 150.h,
-      // width: MediaQuery.of(context).size.width,
       width: 1.sw,
       decoration: BoxDecoration(
         color: bgColor,
@@ -42,7 +40,7 @@ class LeadingCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                question,
+                question.split('|')[0],
                 style: AppTextStyles.caption1.copyWith(
                   color: AppColors.black_800,
                 ),
@@ -56,7 +54,7 @@ class LeadingCard extends StatelessWidget {
               ),
               Spacing(height: 3.h),
               Text(
-                'Have an easy get start now',
+                question.split('|')[1],
                 style: AppTextStyles.caption1.copyWith(
                   color: AppColors.black_800,
                 ),

@@ -167,6 +167,60 @@ abstract class AppLocalizations {
   /// **'An unexpected error occurred'**
   String get unExpectedError;
 
+  /// No description provided for @doYouWantTo.
+  ///
+  /// In en, this message translates to:
+  /// **'Do you want to create a|Have an easy way to get start now'**
+  String get doYouWantTo;
+
+  /// No description provided for @createRide.
+  ///
+  /// In en, this message translates to:
+  /// **'Create Ride'**
+  String get createRide;
+
+  /// No description provided for @myStats.
+  ///
+  /// In en, this message translates to:
+  /// **'My Stats'**
+  String get myStats;
+
+  /// No description provided for @myVehicles.
+  ///
+  /// In en, this message translates to:
+  /// **'My Vehicles'**
+  String get myVehicles;
+
+  /// No description provided for @ratings.
+  ///
+  /// In en, this message translates to:
+  /// **'Ratings'**
+  String get ratings;
+
+  /// No description provided for @rides.
+  ///
+  /// In en, this message translates to:
+  /// **'Rides'**
+  String get rides;
+
+  /// No description provided for @revenue.
+  ///
+  /// In en, this message translates to:
+  /// **'Revenue'**
+  String get revenue;
+
+  /// No description provided for @recentTrips.
+  ///
+  /// In en, this message translates to:
+  /// **'Recent Trips'**
+  String get recentTrips;
+
+  /// No description provided for @seats.
+  ///
+  /// In en, this message translates to:
+  /// **'Seats'**
+  String get seats;
+
   /// No description provided for @profile.
   ///
   /// In en, this message translates to:
@@ -220,6 +274,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Sign Out'**
   String get signOut;
+
+  /// No description provided for @signingOut.
+  ///
+  /// In en, this message translates to:
+  /// **'Logging out'**
+  String get signingOut;
+
+  /// No description provided for @lightMode.
+  ///
+  /// In en, this message translates to:
+  /// **'Light Mode'**
+  String get lightMode;
+
+  /// No description provided for @darkMode.
+  ///
+  /// In en, this message translates to:
+  /// **'Dark Mode'**
+  String get darkMode;
+
+  /// No description provided for @english.
+  ///
+  /// In en, this message translates to:
+  /// **'English'**
+  String get english;
+
+  /// No description provided for @french.
+  ///
+  /// In en, this message translates to:
+  /// **'French'**
+  String get french;
 
   /// No description provided for @documents.
   ///

@@ -43,6 +43,33 @@ class AppLocalizationsFr extends AppLocalizations {
   String get unExpectedError => 'Une erreur inattendue s\'est produite';
 
   @override
+  String get doYouWantTo => 'Voulez-vous créer un|Commencez maintenant';
+
+  @override
+  String get createRide => 'Créer un trajet';
+
+  @override
+  String get myStats => 'Mes Stats';
+
+  @override
+  String get myVehicles => 'Mes Véhicules';
+
+  @override
+  String get ratings => 'Évaluations';
+
+  @override
+  String get rides => 'Trajets';
+
+  @override
+  String get revenue => 'Revenus';
+
+  @override
+  String get recentTrips => 'Trajets récents';
+
+  @override
+  String get seats => 'Places';
+
+  @override
   String get profile => 'Profil';
 
   @override
@@ -68,6 +95,21 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get signOut => 'Déconnexion';
+
+  @override
+  String get signingOut => 'Déconnexion';
+
+  @override
+  String get lightMode => 'Mode clair';
+
+  @override
+  String get darkMode => 'Mode sombre';
+
+  @override
+  String get english => 'Anglais';
+
+  @override
+  String get french => 'Français';
 
   @override
   String get documents => 'Documents';

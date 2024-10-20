@@ -43,6 +43,33 @@ class AppLocalizationsEn extends AppLocalizations {
   String get unExpectedError => 'An unexpected error occurred';
 
   @override
+  String get doYouWantTo => 'Do you want to create a|Have an easy way to get start now';
+
+  @override
+  String get createRide => 'Create Ride';
+
+  @override
+  String get myStats => 'My Stats';
+
+  @override
+  String get myVehicles => 'My Vehicles';
+
+  @override
+  String get ratings => 'Ratings';
+
+  @override
+  String get rides => 'Rides';
+
+  @override
+  String get revenue => 'Revenue';
+
+  @override
+  String get recentTrips => 'Recent Trips';
+
+  @override
+  String get seats => 'Seats';
+
+  @override
   String get profile => 'Profile';
 
   @override
@@ -68,6 +95,21 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get signOut => 'Sign Out';
+
+  @override
+  String get signingOut => 'Logging out';
+
+  @override
+  String get lightMode => 'Light Mode';
+
+  @override
+  String get darkMode => 'Dark Mode';
+
+  @override
+  String get english => 'English';
+
+  @override
+  String get french => 'French';
 
   @override
   String get documents => 'Documents';

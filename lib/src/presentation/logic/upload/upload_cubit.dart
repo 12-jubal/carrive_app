@@ -14,7 +14,6 @@ class UploadCubit extends Cubit<UploadState> {
   // Handle selection of an option
   String selectOption(String option) {
     emit(state.copyWith(option: option));
-    print(option);
     if (option == localizations.uploadImage) {
       pickImage();
     } else if (option == localizations.uploadFile) {

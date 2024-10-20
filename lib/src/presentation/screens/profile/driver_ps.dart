@@ -1,10 +1,9 @@
-import 'dart:developer';
-
 import 'package:carrive_app/l10n/app_localizations.dart';
 import 'package:carrive_app/src/data/models/user.dart';
 import 'package:carrive_app/src/presentation/logic/profile/profile_cubit.dart';
 import 'package:carrive_app/src/presentation/logic/profile/profile_state.dart';
 import 'package:carrive_app/src/presentation/screens/my_docs.dart';
+import 'package:carrive_app/src/presentation/screens/welcome_screen.dart';
 import 'package:carrive_app/src/utils/app_navigator.dart';
 import 'package:carrive_app/src/utils/components/bloc_options.dart';
 import 'package:carrive_app/src/utils/components/custom_screen.dart';
@@ -27,20 +26,24 @@ class DriverProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final locale = AppLocalizations.of(context)!;
     return BlocProvider(
-        create: (context) => ProfileCubit(user: user),
+        create: (context) => ProfileCubit(
+              user: user,
+              locale: locale,
+            ),
         child: BlocConsumer<ProfileCubit, ProfileState>(
           listener: (context, state) {
             if (state is ProfileSignOut) {
-              log('Sign Out');
+              AppNavigator.pushReplacement(context, const WelcomeScreen());
             }
           },
           builder: (context, state) {
-            // final cubit = context.read<ProfileCubit>();
+            final cubit = context.read<ProfileCubit>();
             final locale = AppLocalizations.of(context)!;
             return CustomScreen(
               isLoading: state is ProfileLoading,
-              loadingMessage: locale.loadingProfile,
+              loadingMessage: state is ProfileLoading ? state.message : '',
               child: Scaffold(
                 body: SafeArea(
                   child: Stack(
@@ -61,16 +64,26 @@ class DriverProfileScreen extends StatelessWidget {
                                 BlocOption(
                                   options: [
                                     Option(
-                                      onTap: () {},
                                       iconString: 'assets/icons/light_mode.svg',
                                       title: locale.appTheme,
                                       color: AppColors.blue_700,
+                                      isOption: true,
+                                      options: [
+                                        locale.lightMode,
+                                        locale.darkMode,
+                                      ],
                                     ),
                                     Option(
-                                      onTap: () {},
                                       iconString: 'assets/icons/language.svg',
                                       title: locale.language,
                                       color: AppColors.secondarySource,
+                                      isOption: true,
+                                      options: [
+                                        locale.english,
+                                        locale.french,
+                                      ],
+                                      onChanged: cubit.selectLanguage,
+                                      // selectedValue: uploadOption,
                                     ),
                                   ],
                                 ),
@@ -116,7 +129,7 @@ class DriverProfileScreen extends StatelessWidget {
                                   options: [
                                     Option(
                                       onTap: () {
-                                        log('Sign Out');
+                                        cubit.signOut();
                                       },
                                       iconString: 'assets/icons/logout.svg',
                                       title: locale.signOut,
