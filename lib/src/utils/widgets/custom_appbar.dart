@@ -115,7 +115,7 @@ class CustomProfileAppbar extends StatelessWidget {
             child: GestureDetector(
               onTap: onTrailingTap,
               child: SizedBox(
-                width: 64.w,
+                width: 128.w,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [

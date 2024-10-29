@@ -154,7 +154,7 @@ class DriverProfileScreen extends StatelessWidget {
                         left: 0,
                         right: 0,
                         child: CustomProfileAppbar(
-                          title: AppLocalizations.of(context)!.profile,
+                          title: locale.profile,
                           shadow: false,
                           trailing: SvgPicture.asset(
                             'assets/icons/search.svg',

@@ -113,6 +113,30 @@ abstract class AppLocalizations {
   /// **'Select an option'**
   String get selectOption;
 
+  /// No description provided for @cancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get cancel;
+
+  /// No description provided for @ok.
+  ///
+  /// In en, this message translates to:
+  /// **'Ok'**
+  String get ok;
+
+  /// No description provided for @yes.
+  ///
+  /// In en, this message translates to:
+  /// **'Yes'**
+  String get yes;
+
+  /// No description provided for @no.
+  ///
+  /// In en, this message translates to:
+  /// **'No'**
+  String get no;
+
   /// No description provided for @chooseHowToUseApp.
   ///
   /// In en, this message translates to:
@@ -220,6 +244,198 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Seats'**
   String get seats;
+
+  /// No description provided for @chats.
+  ///
+  /// In en, this message translates to:
+  /// **'Chats'**
+  String get chats;
+
+  /// No description provided for @bookings.
+  ///
+  /// In en, this message translates to:
+  /// **'Bookings'**
+  String get bookings;
+
+  /// No description provided for @week.
+  ///
+  /// In en, this message translates to:
+  /// **'Week'**
+  String get week;
+
+  /// No description provided for @monday.
+  ///
+  /// In en, this message translates to:
+  /// **'Monday'**
+  String get monday;
+
+  /// No description provided for @tuesday.
+  ///
+  /// In en, this message translates to:
+  /// **'Tuesday'**
+  String get tuesday;
+
+  /// No description provided for @wednesday.
+  ///
+  /// In en, this message translates to:
+  /// **'Wednesday'**
+  String get wednesday;
+
+  /// No description provided for @thursday.
+  ///
+  /// In en, this message translates to:
+  /// **'Thursday'**
+  String get thursday;
+
+  /// No description provided for @friday.
+  ///
+  /// In en, this message translates to:
+  /// **'Friday'**
+  String get friday;
+
+  /// No description provided for @saturday.
+  ///
+  /// In en, this message translates to:
+  /// **'Saturday'**
+  String get saturday;
+
+  /// No description provided for @sunday.
+  ///
+  /// In en, this message translates to:
+  /// **'Sunday'**
+  String get sunday;
+
+  /// No description provided for @newRide.
+  ///
+  /// In en, this message translates to:
+  /// **'New Ride'**
+  String get newRide;
+
+  /// No description provided for @pickUp.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick Up'**
+  String get pickUp;
+
+  /// No description provided for @choosePickup.
+  ///
+  /// In en, this message translates to:
+  /// **'Select a Pickup'**
+  String get choosePickup;
+
+  /// No description provided for @destination.
+  ///
+  /// In en, this message translates to:
+  /// **'Destination'**
+  String get destination;
+
+  /// No description provided for @chooseDestination.
+  ///
+  /// In en, this message translates to:
+  /// **'Select a Destination'**
+  String get chooseDestination;
+
+  /// No description provided for @price.
+  ///
+  /// In en, this message translates to:
+  /// **'Price'**
+  String get price;
+
+  /// No description provided for @billing.
+  ///
+  /// In en, this message translates to:
+  /// **'Billing'**
+  String get billing;
+
+  /// No description provided for @date.
+  ///
+  /// In en, this message translates to:
+  /// **'Date'**
+  String get date;
+
+  /// No description provided for @time.
+  ///
+  /// In en, this message translates to:
+  /// **'Time'**
+  String get time;
+
+  /// No description provided for @vehicle.
+  ///
+  /// In en, this message translates to:
+  /// **'Vehicle'**
+  String get vehicle;
+
+  /// No description provided for @numberOfPlaces.
+  ///
+  /// In en, this message translates to:
+  /// **'Number of Places'**
+  String get numberOfPlaces;
+
+  /// No description provided for @permitShipping.
+  ///
+  /// In en, this message translates to:
+  /// **'Permit Shipping'**
+  String get permitShipping;
+
+  /// No description provided for @calculatedPrice.
+  ///
+  /// In en, this message translates to:
+  /// **'Calculated Price'**
+  String get calculatedPrice;
+
+  /// No description provided for @calculatingPrice.
+  ///
+  /// In en, this message translates to:
+  /// **'Calculating Price...'**
+  String get calculatingPrice;
+
+  /// No description provided for @selectPockupAndDestination.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select both pickup and destination'**
+  String get selectPockupAndDestination;
+
+  /// No description provided for @selectDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Select a Date'**
+  String get selectDate;
+
+  /// No description provided for @selectTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Select a Time'**
+  String get selectTime;
+
+  /// No description provided for @selectCar.
+  ///
+  /// In en, this message translates to:
+  /// **'Select a Car'**
+  String get selectCar;
+
+  /// No description provided for @creatingRide.
+  ///
+  /// In en, this message translates to:
+  /// **'Creating a Ride'**
+  String get creatingRide;
+
+  /// No description provided for @completeCreation.
+  ///
+  /// In en, this message translates to:
+  /// **'Please complete the ride creation'**
+  String get completeCreation;
+
+  /// No description provided for @post.
+  ///
+  /// In en, this message translates to:
+  /// **'Post'**
+  String get post;
+
+  /// No description provided for @saveInDraft.
+  ///
+  /// In en, this message translates to:
+  /// **'Save in draft'**
+  String get saveInDraft;
 
   /// No description provided for @profile.
   ///

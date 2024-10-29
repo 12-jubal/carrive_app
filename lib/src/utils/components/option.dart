@@ -22,6 +22,9 @@ class Option extends StatefulWidget {
     this.options,
     this.selectedValue,
     this.onChanged,
+    this.isNumber = false,
+    this.decrement,
+    this.increment,
   });
 
   final Function()? onTap;
@@ -35,6 +38,10 @@ class Option extends StatefulWidget {
   final List<String>? options;
   String? selectedValue;
   final ValueChanged<String>? onChanged;
+  final bool? isNumber;
+  // final Function
+  // final VoidCallback? decrement;
+  void Function()? decrement, increment;
 
   @override
   State<Option> createState() => _OptionState();
@@ -178,6 +185,34 @@ class _OptionState extends State<Option> {
             if (widget.toggle != null)
               CustomToggle(
                 isActive: widget.toggle ?? false,
+              )
+            else if (widget.isNumber == true)
+              Row(
+                children: [
+                  GestureDetector(
+                    onTap: widget.decrement,
+                    child: SvgPicture.asset(
+                      'assets/icons/remove.svg',
+                      height: 22.h,
+                      colorFilter: const ColorFilter.mode(
+                        AppColors.black_700,
+                        BlendMode.srcIn,
+                      ),
+                    ),
+                  ),
+                  const Spacing(width: 12),
+                  GestureDetector(
+                    onTap: widget.increment,
+                    child: SvgPicture.asset(
+                      'assets/icons/add.svg',
+                      height: 22.h,
+                      colorFilter: const ColorFilter.mode(
+                        AppColors.black_700,
+                        BlendMode.srcIn,
+                      ),
+                    ),
+                  ),
+                ],
               )
             else
               SvgPicture.asset(

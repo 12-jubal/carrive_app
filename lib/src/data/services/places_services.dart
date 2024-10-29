@@ -6,13 +6,14 @@ class PlaceService {
   // Singleton Pattern for easy access
   PlaceService._();
 
-  static Future<List<Place>> placeSuggestions({required String place}) async {
+  static Future<List<PlaceSuggestions>> placeSuggestions(
+      {required String place}) async {
     const apiKey = 'AIzaSyDn0io98bDR9ElSNEpRu42f8HfRqeikbV0';
     try {
       final response = await APIService.instance.request(
         myBaseUrl: 'https://maps.googleapis.com',
         endpoint: '/maps/api/place/autocomplete/json?input=$place&'
-            'components=country:cm&language=fr&key=$apiKey',
+            'components=country:ca&language=fr&key=$apiKey',
         DioMethod.get,
       );
       if (response.statusCode == 200) {
@@ -20,11 +21,62 @@ class PlaceService {
         var placesJson = jsonResponse['predictions'] as List;
 
         // Map the predictions JSON into a list of Prediction objects
-        List<Place> places = placesJson.map((pred) {
-          return Place.fromJson(pred);
+        List<PlaceSuggestions> places = placesJson.map((pred) {
+          return PlaceSuggestions.fromJson(pred);
         }).toList();
 
         return places;
+      } else {
+        throw Exception('${response.statusCode}: ${response.statusMessage}');
+      }
+    } catch (e) {
+      throw Exception(e.toString());
+    }
+  }
+
+  static Future<PlaceDetail> placeDetails({required String placeId}) async {
+    const apiKey = 'AIzaSyDn0io98bDR9ElSNEpRu42f8HfRqeikbV0';
+    try {
+      final response = await APIService.instance.request(
+        myBaseUrl: 'https://maps.googleapis.com',
+        endpoint:
+            '/maps/api/place/details/json?place_id=$placeId&fields=geometry&key=$apiKey',
+        DioMethod.get,
+      );
+      if (response.statusCode == 200) {
+        var jsonResponse = response.data;
+        var placeJson = jsonResponse;
+
+        // Get the details of a place
+        PlaceDetail placeDetail = PlaceDetail.fromJson(placeJson);
+
+        return placeDetail;
+      } else {
+        throw Exception('${response.statusCode}: ${response.statusMessage}');
+      }
+    } catch (e) {
+      throw Exception(e.toString());
+    }
+  }
+
+  static Future<PlaceDistDur> placeDistance(
+      {required PlaceDetail origins, required PlaceDetail destinations}) async {
+    const apiKey = 'AIzaSyDn0io98bDR9ElSNEpRu42f8HfRqeikbV0';
+    try {
+      final response = await APIService.instance.request(
+        myBaseUrl: 'https://maps.googleapis.com',
+        endpoint:
+            '/maps/api/distancematrix/json?origins=${origins.lat},${origins.lng}&destinations=${destinations.lat},${destinations.lng}&key=$apiKey',
+        DioMethod.get,
+      );
+      if (response.statusCode == 200) {
+        var jsonResponse = response.data;
+        var placeJson = jsonResponse;
+
+        // Get the distance between two places
+        PlaceDistDur placeDistDur = PlaceDistDur.fromJson(placeJson);
+
+        return placeDistDur;
       } else {
         throw Exception('${response.statusCode}: ${response.statusMessage}');
       }

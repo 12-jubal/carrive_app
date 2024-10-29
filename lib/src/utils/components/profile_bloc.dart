@@ -33,20 +33,18 @@ class ProfileBloc extends StatelessWidget {
           Row(
             children: [
               Container(
-                width: 50,
-                height: 50,
+                width: 50.w,
+                height: 50.h,
                 // padding: const EdgeInsets.only(
                 //     top: 36, left: 36),
-                decoration: ShapeDecoration(
+                decoration: const ShapeDecoration(
                   //   image: DecorationImage(
                   //     image: NetworkImage(
                   //         "https://via.placeholder.com/50x50"),
                   //     fit: BoxFit.fill,
                   //   ),
                   color: AppColors.blue_200,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
-                  ),
+                  shape: CircleBorder(),
                 ),
                 child: Center(
                   child: Text(

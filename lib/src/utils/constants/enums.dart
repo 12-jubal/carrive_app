@@ -14,3 +14,6 @@ enum DioMethod { post, get, put, delete }
 
 // Bottom Nav bar items
 enum NavbarItem { explore, chat, bookings, profile }
+
+// Status of a ride
+enum RideStatus { created, ongoing, failed, compeleted }

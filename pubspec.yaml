@@ -48,6 +48,8 @@ dependencies:
   shared_preferences: ^2.2.3
   file_picker: ^8.0.5
   image_picker: ^1.1.2
+  syncfusion_flutter_calendar: ^27.1.55
+  jiffy: ^6.3.1
 
 dev_dependencies:
   flutter_test:

@@ -16,6 +16,18 @@ class AppLocalizationsEn extends AppLocalizations {
   String get selectOption => 'Select an option';
 
   @override
+  String get cancel => 'Cancel';
+
+  @override
+  String get ok => 'Ok';
+
+  @override
+  String get yes => 'Yes';
+
+  @override
+  String get no => 'No';
+
+  @override
   String get chooseHowToUseApp => 'Choose how you plan on using CARRIVE';
 
   @override
@@ -68,6 +80,102 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get seats => 'Seats';
+
+  @override
+  String get chats => 'Chats';
+
+  @override
+  String get bookings => 'Bookings';
+
+  @override
+  String get week => 'Week';
+
+  @override
+  String get monday => 'Monday';
+
+  @override
+  String get tuesday => 'Tuesday';
+
+  @override
+  String get wednesday => 'Wednesday';
+
+  @override
+  String get thursday => 'Thursday';
+
+  @override
+  String get friday => 'Friday';
+
+  @override
+  String get saturday => 'Saturday';
+
+  @override
+  String get sunday => 'Sunday';
+
+  @override
+  String get newRide => 'New Ride';
+
+  @override
+  String get pickUp => 'Pick Up';
+
+  @override
+  String get choosePickup => 'Select a Pickup';
+
+  @override
+  String get destination => 'Destination';
+
+  @override
+  String get chooseDestination => 'Select a Destination';
+
+  @override
+  String get price => 'Price';
+
+  @override
+  String get billing => 'Billing';
+
+  @override
+  String get date => 'Date';
+
+  @override
+  String get time => 'Time';
+
+  @override
+  String get vehicle => 'Vehicle';
+
+  @override
+  String get numberOfPlaces => 'Number of Places';
+
+  @override
+  String get permitShipping => 'Permit Shipping';
+
+  @override
+  String get calculatedPrice => 'Calculated Price';
+
+  @override
+  String get calculatingPrice => 'Calculating Price...';
+
+  @override
+  String get selectPockupAndDestination => 'Please select both pickup and destination';
+
+  @override
+  String get selectDate => 'Select a Date';
+
+  @override
+  String get selectTime => 'Select a Time';
+
+  @override
+  String get selectCar => 'Select a Car';
+
+  @override
+  String get creatingRide => 'Creating a Ride';
+
+  @override
+  String get completeCreation => 'Please complete the ride creation';
+
+  @override
+  String get post => 'Post';
+
+  @override
+  String get saveInDraft => 'Save in draft';
 
   @override
   String get profile => 'Profile';

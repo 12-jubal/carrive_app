@@ -11,19 +11,23 @@ import 'package:pinput/pinput.dart';
 class CustomTextField extends StatefulWidget {
   CustomTextField({
     super.key,
-    required this.label,
+    this.label,
     required this.hint,
     this.initialValue = '',
     this.obscureText,
+    this.suffix,
+    this.suffixIconString,
     this.validationType,
     this.keyboardType,
     required this.onChanged,
     required this.textEditingController,
   });
 
-  final String label, hint;
+  final String? label;
+  final String hint;
   final String initialValue;
-  bool? obscureText;
+  final String? suffixIconString;
+  bool? obscureText, suffix;
   TextInputType? keyboardType;
   final ValidationType? validationType;
   final ValueChanged<String> onChanged;
@@ -39,39 +43,40 @@ class _CustomTextFieldState extends State<CustomTextField> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          children: [
-            Text(
-              widget.label,
-              style: AppTextStyles.body2.copyWith(
-                color: AppColors.black_900,
-              ),
-            ),
-            const Spacing(width: 4),
-            if (widget.validationType == null)
-              const SizedBox()
-            else if (widget.validationType == ValidationType.valid)
-              SvgPicture.asset(
-                "assets/icons/checked_filled.svg",
-                height: 16.h,
-                width: 16.w,
-                colorFilter: const ColorFilter.mode(
-                  AppColors.green_700,
-                  BlendMode.srcIn,
-                ),
-              )
-            else
-              SvgPicture.asset(
-                "assets/icons/cancel_filled.svg",
-                height: 16.h,
-                width: 16.w,
-                colorFilter: const ColorFilter.mode(
-                  AppColors.red_700,
-                  BlendMode.srcIn,
+        if (widget.label != null)
+          Row(
+            children: [
+              Text(
+                widget.label ?? '',
+                style: AppTextStyles.body2.copyWith(
+                  color: AppColors.black_900,
                 ),
               ),
-          ],
-        ),
+              const Spacing(width: 4),
+              if (widget.validationType == null)
+                const SizedBox()
+              else if (widget.validationType == ValidationType.valid)
+                SvgPicture.asset(
+                  "assets/icons/checked_filled.svg",
+                  height: 16.h,
+                  width: 16.w,
+                  colorFilter: const ColorFilter.mode(
+                    AppColors.green_700,
+                    BlendMode.srcIn,
+                  ),
+                )
+              else
+                SvgPicture.asset(
+                  "assets/icons/cancel_filled.svg",
+                  height: 16.h,
+                  width: 16.w,
+                  colorFilter: const ColorFilter.mode(
+                    AppColors.red_700,
+                    BlendMode.srcIn,
+                  ),
+                ),
+            ],
+          ),
         const Spacing(height: 6),
         TextFormField(
           // initialValue: initialValue,
@@ -107,7 +112,17 @@ class _CustomTextFieldState extends State<CustomTextField> {
                       ),
                     ),
                   )
-                : null,
+                : widget.suffix != null
+                    ? SvgPicture.asset(
+                        widget.suffixIconString ?? '',
+                        height: 20.h,
+                        width: 20.w,
+                        colorFilter: const ColorFilter.mode(
+                          AppColors.black_500,
+                          BlendMode.srcIn,
+                        ),
+                      )
+                    : null,
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8.r),
               borderSide: BorderSide.none,

@@ -28,6 +28,9 @@ class CustomButton extends StatelessWidget {
         decoration: BoxDecoration(
           color: bgcolor ?? AppColors.primarySource,
           borderRadius: BorderRadius.circular(8.r),
+          border: bgcolor == Colors.transparent
+              ? Border.all(color: textColor!)
+              : null,
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,

@@ -1,5 +1,6 @@
 import 'package:carrive_app/l10n/app_localizations.dart';
 import 'package:carrive_app/src/data/models/user.dart';
+import 'package:carrive_app/src/data/services/driver_services.dart';
 import 'package:carrive_app/src/presentation/logic/profile/profile_state.dart';
 import 'package:carrive_app/src/utils/storage/user_sp_helper.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,8 +15,10 @@ class ProfileCubit extends Cubit<ProfileState> {
   void signOut() async {
     // emitting loading state
     emit(ProfileLoading(message: locale.signingOut));
+    await DriverServices.driverLogout();
     await UserSharedPreferencesHelper.clearUser();
-    await Future.delayed(const Duration(seconds: 3));
+
+    // await Future.delayed(const Duration(seconds: 3));
     emit(ProfileSignOut());
   }
 

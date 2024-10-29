@@ -2,25 +2,15 @@ import 'dart:developer';
 import 'package:carrive_app/src/data/models/response.dart';
 import 'package:carrive_app/src/data/models/user.dart';
 import 'package:carrive_app/src/helpers/api_helpers.dart';
+import 'package:carrive_app/src/helpers/convertion_helpers.dart';
 import 'package:carrive_app/src/utils/constants/enums.dart';
 
 class AuthService {
   // Singleton pattern
   AuthService._();
-  // method to convert our enum to a string
-  static String userTypeToString(UserType userType) {
-    switch (userType) {
-      case UserType.driver:
-        return 'DRIVER';
-      case UserType.passenger:
-        return 'PASSENGER';
-      default:
-        return 'NULL';
-    }
-  }
 
   String get authUrl {
-    return 'https://2411-41-202-219-166.ngrok-free.app';
+    return 'http://192.168.1.198:8082';
   }
 
   // Method to login a user
@@ -53,6 +43,9 @@ class AuthService {
         throw Exception('${response.statusCode}: ${response.statusMessage}');
       }
     } catch (e) {
+      // if (e is DioException) {
+      //   log('DioException: ${e.toString()}');
+      // }
       log(e.toString());
       throw Exception(e.toString());
     }
@@ -84,7 +77,7 @@ class AuthService {
           'email': email,
           'password': password,
           'confirmPassword': confirmPassword,
-          'userType': userTypeToString(userType),
+          'userType': ConvertionHelpers.userTypeToString(userType),
           'idCar': idCar,
           'matriculation': matriculation,
           'color': color,

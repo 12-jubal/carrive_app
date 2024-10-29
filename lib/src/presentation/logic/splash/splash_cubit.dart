@@ -11,14 +11,22 @@ class SplashCubit extends Cubit<SplashState> {
     try {
       // Retrieve the stored user data from SharedPreferences
       final user = await UserSharedPreferencesHelper.getUserObject();
-
       if (user != null) {
-        await Future.delayed(const Duration(seconds: 3));
-        emit(HomeLoaded(user)); // User exists
+        if (user.isActive) {
+          await Future.delayed(const Duration(seconds: 3));
+          emit(HomeLoaded(user)); // User exists
+        } else {
+          await Future.delayed(const Duration(seconds: 3));
+          emit(WelcomeLoaded()); // No user found
+        }
       } else {
         await Future.delayed(const Duration(seconds: 3));
         emit(WelcomeLoaded()); // No user found
       }
+      // if (user!.isActive) {
+      //   await Future.delayed(const Duration(seconds: 3));
+      //   emit(HomeLoaded(user)); // User exists
+      // }
     } catch (error) {
       emit(SplashScreenError(error.toString()));
     }

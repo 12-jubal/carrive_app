@@ -52,7 +52,11 @@ class DriverExploreScreen extends StatelessWidget {
                               btnLabel: locale.createRide,
                               btnColor: AppColors.secondarySource,
                               onTap: () {
-                                AppNavigator.push(context, const CreateRide());
+                                AppNavigator.push(
+                                    context,
+                                    CreateRide(
+                                      user: user,
+                                    ));
                               },
                             ),
                             const Spacing(height: 24),
