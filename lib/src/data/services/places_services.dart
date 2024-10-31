@@ -11,11 +11,15 @@ class PlaceService {
     const apiKey = 'AIzaSyDn0io98bDR9ElSNEpRu42f8HfRqeikbV0';
     try {
       final response = await APIService.instance.request(
-        myBaseUrl: 'https://maps.googleapis.com',
-        endpoint: '/maps/api/place/autocomplete/json?input=$place&'
-            'components=country:ca&language=fr&key=$apiKey',
-        DioMethod.get,
-      );
+          myBaseUrl: 'https://maps.googleapis.com',
+          endpoint: '/maps/api/place/autocomplete/json',
+          DioMethod.get,
+          param: {
+            'input': place,
+            'components': 'country:ca',
+            'language': 'fr',
+            'key': apiKey,
+          });
       if (response.statusCode == 200) {
         var jsonResponse = response.data;
         var placesJson = jsonResponse['predictions'] as List;

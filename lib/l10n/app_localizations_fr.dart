@@ -85,6 +85,24 @@ class AppLocalizationsFr extends AppLocalizations {
   String get chats => 'Conversations';
 
   @override
+  String get noChatsRecommendations => 'You have no chats please search users to begin a conversation';
+
+  @override
+  String get startChat => 'Commencer une Conversation';
+
+  @override
+  String get newMessage => 'Nouveau Message';
+
+  @override
+  String get searchUser => 'Rechercher un utilisateur';
+
+  @override
+  String get loadingChats => 'Chargement des conversations...';
+
+  @override
+  String get typeMessage => 'Saisir un message';
+
+  @override
   String get bookings => 'Réservations';
 
   @override

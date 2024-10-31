@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:carrive_app/src/utils/constants/enums.dart';
@@ -36,6 +37,7 @@ class APIService {
         // Retrieve the stored user data from SharedPreferences
         final user = await UserSharedPreferencesHelper.getUserObject();
         String? token = user!.token;
+        log('USER_TOKEN: $token');
 
         if (token != null) {
           // log("USER_TOKEN: $token");

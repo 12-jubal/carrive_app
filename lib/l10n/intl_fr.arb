@@ -34,6 +34,12 @@
 
     "@_CHAT_PAGE": {},
     "chats" : "Conversations",
+    "noChatRecommendations" : "Vous n'avez pas de conversations, veuillez rechercher des utilisateurs pour commencer une conversation",
+    "startChat" : "Commencer une Conversation",
+    "newMessage" : "Nouveau Message",
+    "searchUser" : "Rechercher un utilisateur",
+    "loadingChats" : "Chargement des conversations...",
+    "typeMessage" : "Saisir un message",
 
     "@_BOOKING_PAGE": {},
     "bookings" : "Réservations",

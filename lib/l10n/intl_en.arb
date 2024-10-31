@@ -34,6 +34,12 @@
 
     "@_CHAT_PAGE": {},
     "chats" : "Chats",
+    "noChatsRecommendations" : "You have no chats please search users to begin a conversation",
+    "startChat" : "Start a Conversation",
+    "newMessage" : "New Message",
+    "searchUser" : "Search User",
+    "loadingChats" : "Loading User's Chats...",
+    "typeMessage" : "Type a message",
 
     "@_BOOKING_PAGE": {},
     "bookings" : "Bookings",

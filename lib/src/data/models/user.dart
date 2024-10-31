@@ -49,8 +49,11 @@ class User {
     isConnected = json['isConnected'];
     isRegister = json['isRegister'];
     userType = typeFromString(json['userType']);
-    cars =
-        (json['cars'] as List).map((carJson) => Car.fromJson(carJson)).toList();
+    cars = json['cars'] != null
+        ? (json['cars'] as List)
+            .map((carJson) => Car.fromJson(carJson))
+            .toList()
+        : [];
   }
 
   Map<String, dynamic> toJson() {

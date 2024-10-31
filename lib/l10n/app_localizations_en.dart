@@ -85,6 +85,24 @@ class AppLocalizationsEn extends AppLocalizations {
   String get chats => 'Chats';
 
   @override
+  String get noChatsRecommendations => 'You have no chats please search users to begin a conversation';
+
+  @override
+  String get startChat => 'Start a Conversation';
+
+  @override
+  String get newMessage => 'New Message';
+
+  @override
+  String get searchUser => 'Search User';
+
+  @override
+  String get loadingChats => 'Loading User\'s Chats...';
+
+  @override
+  String get typeMessage => 'Type a message';
+
+  @override
   String get bookings => 'Bookings';
 
   @override

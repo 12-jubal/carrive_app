@@ -21,13 +21,14 @@ class CustomTextField extends StatefulWidget {
     this.keyboardType,
     required this.onChanged,
     required this.textEditingController,
+    this.expands,
   });
 
   final String? label;
   final String hint;
   final String initialValue;
   final String? suffixIconString;
-  bool? obscureText, suffix;
+  bool? obscureText, suffix, expands;
   TextInputType? keyboardType;
   final ValidationType? validationType;
   final ValueChanged<String> onChanged;
@@ -81,11 +82,15 @@ class _CustomTextFieldState extends State<CustomTextField> {
         TextFormField(
           // initialValue: initialValue,
           style: AppTextStyles.body2,
-          keyboardType: widget.keyboardType ?? TextInputType.text,
+          keyboardType: widget.expands == true
+              ? TextInputType.multiline
+              : widget.keyboardType ?? TextInputType.text,
           obscureText: widget.obscureText ?? false,
           obscuringCharacter: '*',
           onChanged: widget.onChanged,
           controller: widget.textEditingController,
+          minLines: widget.expands == true ? 1 : 1,
+          maxLines: widget.expands == true ? 5 : 1,
           decoration: InputDecoration(
             filled: true,
             fillColor: AppColors.primary_100,

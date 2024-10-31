@@ -3,8 +3,11 @@ import 'dart:developer';
 
 import 'package:carrive_app/l10n/app_localizations.dart';
 import 'package:carrive_app/src/data/models/place.dart';
+import 'package:carrive_app/src/data/models/user.dart';
 import 'package:carrive_app/src/data/services/places_services.dart';
+import 'package:carrive_app/src/presentation/screens/chat/a_conversation.dart';
 import 'package:carrive_app/src/utils/app_navigator.dart';
+import 'package:carrive_app/src/utils/constants/enums.dart';
 import 'package:carrive_app/src/utils/spacing.dart';
 import 'package:carrive_app/src/utils/style/colors.dart';
 import 'package:carrive_app/src/utils/style/text_styles.dart';
@@ -257,6 +260,252 @@ class _CustomLocationBottomSheetState extends State<CustomLocationBottomSheet> {
             ),
           ),
           const SizedBox(height: 16),
+        ],
+      ),
+    );
+  }
+}
+
+class CustomUserBottomSheet extends StatefulWidget {
+  final String title;
+  final String searchHintText;
+  final ValueChanged<String> onChanged;
+  final List<User> users;
+  final User me;
+
+  const CustomUserBottomSheet({
+    super.key,
+    required this.title,
+    required this.searchHintText,
+    required this.onChanged,
+    required this.me,
+    required this.users,
+  });
+
+  static void showusers(
+    BuildContext context, {
+    required String title,
+    required String searchHintText,
+    required ValueChanged<String> onChanged,
+    required User me,
+    required List<User> users,
+  }) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      builder: (context) {
+        return CustomUserBottomSheet(
+          title: title,
+          searchHintText: searchHintText,
+          onChanged: onChanged,
+          me: me,
+          users: users,
+        );
+      },
+    );
+  }
+
+  @override
+  State<CustomUserBottomSheet> createState() => _CustomUserBottomSheetState();
+}
+
+class _CustomUserBottomSheetState extends State<CustomUserBottomSheet> {
+  final TextEditingController searchEditingController = TextEditingController();
+  List<User> listOfSortedUsers = [];
+  bool isSearching = false;
+
+  @override
+  void initState() {
+    listOfSortedUsers = widget.users; // Initially display all users
+    searchEditingController.addListener(() {
+      _onChange();
+    });
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    searchEditingController.dispose();
+    super.dispose();
+  }
+
+  _onChange() {
+    searchUsers(searchEditingController.text);
+  }
+
+  void searchUsers(String input) {
+    // Set the isSearching to true
+    setState(() {
+      isSearching = true;
+    });
+
+    // Filter the list based on the input
+    setState(() {
+      listOfSortedUsers = listOfSortedUsers
+          .where((user) =>
+              user.name.toLowerCase().contains(input.toLowerCase().trim()))
+          .take(8)
+          .toList();
+
+      isSearching = false;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final locale = AppLocalizations.of(context)!;
+    return Container(
+      height: 0.8.sh,
+      decoration: BoxDecoration(
+        color: AppColors.white,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(24.r),
+          topRight: Radius.circular(24.r),
+        ),
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+            padding: EdgeInsets.symmetric(vertical: 20.h, horizontal: 24.w),
+            decoration: BoxDecoration(
+              color: AppColors.primary_100,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(24.r),
+                topRight: Radius.circular(24.r),
+              ),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                GestureDetector(
+                  onTap: () => AppNavigator.pop(context),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SvgPicture.asset(
+                        'assets/icons/back.svg',
+                        height: 18.h,
+                        width: 18.w,
+                        colorFilter: const ColorFilter.mode(
+                          AppColors.skyBlueSource,
+                          BlendMode.srcIn,
+                        ),
+                      ),
+                      const Spacing(width: 2),
+                      Text(
+                        locale.back,
+                        style: AppTextStyles.body3.copyWith(
+                          color: AppColors.skyBlueSource,
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                Text(widget.title, style: AppTextStyles.body1),
+                SizedBox(width: 56.w),
+              ],
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.symmetric(
+              vertical: 20.h,
+              horizontal: 24.w,
+            ),
+            child: Column(
+              children: [
+                CustomSearchField(
+                  hint: widget.searchHintText,
+                  textEditingController: searchEditingController,
+                  onChanged: (text) {
+                    setState(() {});
+                  },
+                ),
+                const Spacing(height: 16),
+                Visibility(
+                  visible: isSearching,
+                  child: const Center(
+                    child: CircularProgressIndicator.adaptive(
+                      strokeWidth: 8,
+                    ),
+                  ),
+                ),
+                Visibility(
+                  visible: searchEditingController.text.isEmpty ? false : true,
+                  child: ListView.builder(
+                    // scrollDirection: Axis.vertical,
+                    // physics: const BouncingScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: listOfSortedUsers.length,
+                    itemBuilder: (context, index) {
+                      return Column(
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              widget.onChanged(listOfSortedUsers[index].id);
+                              AppNavigator.pop(context);
+                              AppNavigator.push(
+                                context,
+                                Conversation(
+                                    me: widget.me,
+                                    other: listOfSortedUsers[index]),
+                              );
+                              // Redirect to conversation screen
+                              log("Receiver's ID: ${listOfSortedUsers[index].id}");
+                              log("My Id : ${widget.me.id}");
+                            },
+                            child: Container(
+                              padding: EdgeInsets.symmetric(
+                                vertical: 4.h,
+                                horizontal: 12,
+                              ),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Container(
+                                    height: 50.h,
+                                    width: 50.w,
+                                    decoration: const ShapeDecoration(
+                                      color: AppColors.blue_200,
+                                      shape: CircleBorder(),
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        listOfSortedUsers[index].name[0],
+                                        style: AppTextStyles.h2.copyWith(
+                                          color: AppColors.blueSource,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  const Spacing(width: 12),
+                                  Expanded(
+                                    child: Text(
+                                      listOfSortedUsers[index].name,
+                                      style: AppTextStyles.body3.copyWith(
+                                        color: AppColors.black_900,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          const Spacing(height: 4),
+                          // if (index != listOfSortedUsers.length - 1)
+                          //   Container(
+                          //     padding: EdgeInsets.only(left: 52.w),
+                          //     child: const Divider(
+                          // color: AppColors.black,),))
+                        ],
+                      );
+                    },
+                  ),
+                )
+              ],
+            ),
+          )
         ],
       ),
     );

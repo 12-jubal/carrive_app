@@ -251,6 +251,42 @@ abstract class AppLocalizations {
   /// **'Chats'**
   String get chats;
 
+  /// No description provided for @noChatsRecommendations.
+  ///
+  /// In en, this message translates to:
+  /// **'You have no chats please search users to begin a conversation'**
+  String get noChatsRecommendations;
+
+  /// No description provided for @startChat.
+  ///
+  /// In en, this message translates to:
+  /// **'Start a Conversation'**
+  String get startChat;
+
+  /// No description provided for @newMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'New Message'**
+  String get newMessage;
+
+  /// No description provided for @searchUser.
+  ///
+  /// In en, this message translates to:
+  /// **'Search User'**
+  String get searchUser;
+
+  /// No description provided for @loadingChats.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading User\'s Chats...'**
+  String get loadingChats;
+
+  /// No description provided for @typeMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Type a message'**
+  String get typeMessage;
+
   /// No description provided for @bookings.
   ///
   /// In en, this message translates to:

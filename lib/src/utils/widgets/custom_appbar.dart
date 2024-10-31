@@ -1,3 +1,4 @@
+import 'package:carrive_app/src/utils/app_navigator.dart';
 import 'package:carrive_app/src/utils/spacing.dart';
 import 'package:carrive_app/src/utils/style/colors.dart';
 import 'package:carrive_app/src/utils/style/text_styles.dart';
@@ -272,6 +273,67 @@ class CustomAppbar extends StatelessWidget {
                     ),
                 ],
               ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class ConversationAppBar extends StatelessWidget {
+  const ConversationAppBar({super.key, required this.otherUserName});
+  final String otherUserName;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 1.sw,
+      padding: EdgeInsets.only(
+        top: 72.h,
+        left: 24.w,
+        right: 24.w,
+        bottom: 16.h,
+      ),
+      color: AppColors.primary_100,
+      child: Row(
+        children: [
+          GestureDetector(
+            onTap: () {
+              AppNavigator.pop(context);
+            },
+            child: SvgPicture.asset(
+              "assets/icons/back.svg",
+              height: 20.h,
+              width: 20.w,
+              colorFilter: const ColorFilter.mode(
+                AppColors.black,
+                BlendMode.srcIn,
+              ),
+            ),
+          ),
+          const Spacing(width: 12),
+          Container(
+            height: 40.h,
+            width: 40.w,
+            decoration: const ShapeDecoration(
+              color: AppColors.primary_300,
+              shape: CircleBorder(),
+            ),
+            child: Center(
+              child: Text(
+                otherUserName[0],
+                style: AppTextStyles.h3.copyWith(
+                  color: AppColors.primarySource,
+                ),
+              ),
+            ),
+          ),
+          const Spacing(width: 12),
+          Text(
+            otherUserName,
+            style: AppTextStyles.body1.copyWith(
+              color: AppColors.primarySource,
             ),
           ),
         ],
