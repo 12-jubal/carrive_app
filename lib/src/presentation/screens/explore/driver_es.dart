@@ -81,7 +81,7 @@ class DriverExploreScreen extends StatelessWidget {
                                   children: [
                                     Statistic(
                                       whatStat: locale.myCars,
-                                      statValue: '0',
+                                      statValue: user.cars.length.toString(),
                                       iconPath:
                                           'assets/images/directions_car.svg',
                                     ),

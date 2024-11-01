@@ -300,3 +300,56 @@ class CustomPinput extends StatelessWidget {
     );
   }
 }
+
+class SearchComponent extends StatelessWidget {
+  const SearchComponent({
+    super.key,
+    this.onTap,
+    required this.iconPath,
+    required this.value,
+  });
+
+  final void Function()? onTap;
+  final String iconPath, value;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        width: double.infinity,
+        padding: EdgeInsets.symmetric(
+          horizontal: 16.w,
+          vertical: 12.h,
+        ),
+        decoration: BoxDecoration(
+            border: Border(
+          bottom: BorderSide(
+            width: 0.5.h,
+            color: AppColors.black_500,
+          ),
+        )),
+        child: Row(
+          children: [
+            SvgPicture.asset(
+              iconPath,
+              height: 20.h,
+              width: 20.w,
+              colorFilter: const ColorFilter.mode(
+                AppColors.primarySource,
+                BlendMode.srcIn,
+              ),
+            ),
+            const Spacing(width: 8),
+            Text(
+              value,
+              style: AppTextStyles.body3.copyWith(
+                color: AppColors.black_600,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

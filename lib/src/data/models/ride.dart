@@ -10,8 +10,8 @@ class Ride {
   late int capacity;
   late double distance;
   late RideStatus status;
-  late bool acceptPakage;
-  late bool isPublished;
+  late bool? acceptPakage;
+  late bool? isPublished;
 
   Ride({
     required this.id,
@@ -49,7 +49,7 @@ class Ride {
     destinationCity = json['destinationCity'];
     capacity = json['capacity'];
     distance = json['distance'];
-    status = json['status'];
+    status = typeFromString(json['status']);
     acceptPakage = json['acceptPakage'];
     isPublished = json['isPublished'];
   }

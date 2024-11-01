@@ -1,72 +1,27 @@
 import 'dart:developer';
 import 'package:carrive_app/src/data/models/conversation.dart';
-import 'package:carrive_app/src/data/models/ride.dart';
 import 'package:carrive_app/src/data/models/user.dart';
 import 'package:carrive_app/src/helpers/api_helpers.dart';
 import 'package:carrive_app/src/utils/constants/enums.dart';
 
-class DriverServices {
-  DriverServices._();
+class PassengerService {
+  PassengerService._();
 
-  String get driverUrl {
-    return 'http://172.20.10.2:8085';
+  String get passengerUrl {
+    return 'http://172.20.10.2:8086';
   }
 
-  static Future<Ride> createRide({
-    required String startDate,
-    required String startTime,
-    required double tariff,
-    required String startCity,
-    required String destinationCity,
-    required int capacity,
-    required double distance,
-    required bool acceptPackage,
-    required bool isPublished,
-  }) async {
-    // Ride ride;
+  static Future<void> passengerLogout() async {
     try {
-      log('Calling API to create ride');
-      final response = await APIService.instance.request(
-          requiresToken: true,
-          myBaseUrl: DriverServices._().driverUrl,
-          DioMethod.post,
-          endpoint: '/driver/create-itinerary',
-          param: {
-            "startDate": startDate,
-            "startTime": startTime,
-            "tariff": tariff,
-            "startCity": startCity,
-            "destinationCity": destinationCity,
-            "capacity": capacity,
-            "distance": distance,
-            "acceptedPackage": acceptPackage,
-            "isPublished": isPublished,
-          });
-      if (response.statusCode == 200) {
-        var jsonResponse = response.data['data'];
-        Ride ride = Ride.fromJson(jsonResponse);
-        return ride;
-      } else {
-        log('${response.statusCode}: ${response.statusMessage}');
-        throw Exception('${response.statusCode}: ${response.statusMessage}');
-      }
-    } catch (e) {
-      log(e.toString());
-      throw Exception(e.toString());
-    }
-  }
-
-  static Future<void> driverLogout() async {
-    try {
-      log('Calling API to logout driver');
+      log('Calling API to logout passenger');
       final response = await APIService.instance.request(
         requiresToken: true,
-        myBaseUrl: DriverServices._().driverUrl,
-        endpoint: '/driver/logout',
+        myBaseUrl: PassengerService._().passengerUrl,
+        endpoint: '/passenger/logout',
         DioMethod.post,
       );
       if (response.statusCode == 200) {
-        log('Driver Logout Successful');
+        log('Passenger Logout Successful');
         // return true;
       } else {
         log('${response.statusCode}: ${response.statusMessage}');
@@ -83,8 +38,8 @@ class DriverServices {
       log('Calling API to get list of users');
       final response = await APIService.instance.request(
         requiresToken: true,
-        myBaseUrl: DriverServices._().driverUrl,
-        endpoint: '/driver/list-users',
+        myBaseUrl: PassengerService._().passengerUrl,
+        endpoint: '/passenger/list-users',
         DioMethod.post,
       );
       if (response.statusCode == 200) {
@@ -122,8 +77,8 @@ class DriverServices {
       log('Calling API to initialize conversation');
       final response = await APIService.instance.request(
         requiresToken: true,
-        myBaseUrl: DriverServices._().driverUrl,
-        endpoint: '/driver/init-conversation?id_receiver=$idReceiver',
+        myBaseUrl: PassengerService._().passengerUrl,
+        endpoint: '/passenger/init-conversation?id_receiver=$idReceiver',
         DioMethod.post,
         // param: {
         //   'id_receiver': idReceiver,
@@ -147,39 +102,12 @@ class DriverServices {
     }
   }
 
-  static Future<void> sendMessage({
-    required String idConversation,
-    required String content,
-  }) async {
-    try {
-      log('Calling API to initialize conversation');
-      final response = await APIService.instance.request(
-          requiresToken: true,
-          myBaseUrl: DriverServices._().driverUrl,
-          endpoint: '/driver/send-message?id_conversation=$idConversation',
-          DioMethod.post,
-          param: {
-            'content': content,
-          });
-      if (response.statusCode == 200) {
-        log('Message Sent');
-        var jsonResponse = response.data['data'];
-      } else {
-        log('${response.statusCode}: ${response.statusMessage}');
-        throw Exception('${response.statusCode}: ${response.statusMessage}');
-      }
-    } catch (e) {
-      log(e.toString());
-      throw Exception(e.toString());
-    }
-  }
-
   static Future<List<ConversationModel>> getConversations() async {
     try {
       log('Calling API to get list of conversations');
       final response = await APIService.instance.request(
         requiresToken: true,
-        myBaseUrl: DriverServices._().driverUrl,
+        myBaseUrl: PassengerService._().passengerUrl,
         endpoint: '/driver/list-conversations',
         DioMethod.post,
       );

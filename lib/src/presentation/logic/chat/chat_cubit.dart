@@ -8,116 +8,32 @@ class ChatCubit extends Cubit<ChatState> {
   TextEditingController searchTextEditingController = TextEditingController();
   final AppLocalizations locale;
   ChatCubit({required this.locale}) : super(ChatInitial()) {
-    getUsers();
+    init();
   }
 
-  void chats() {}
+  // void chats() async {
+  //   emit(ChatLoading(message: locale.loadingChats));
+  //   try {
+  //     final conversations = await DriverServices.getConversations();
+  //     print(conversations);
+  //     emit(ConversationsLoaded(conversations: conversations));
+  //   } catch (e) {
+  //     emit(ChatError(message: e.toString()));
+  //   }
+  // }
 
-  void getUsers() async {
+  void init() async {
     emit(ChatLoading(message: locale.loadingChats));
-    final userList = await DriverServices.getUsers();
-    emit(ChatLoaded(users: userList));
-    // final users = await userRepository.getUsers();
-    // List<User> mockUserList = [
-    //   User(
-    //     id: '1',
-    //     name: 'Alice Johnson',
-    //     email: 'alice@example.com',
-    //     token: 'token_1',
-    //     isActive: true,
-    //     isConnected: true,
-    //     isRegister: true,
-    //     userType: UserType.driver,
-    //     cars: [],
-    //   ),
-    //   User(
-    //     id: '2',
-    //     name: 'Bob Smith',
-    //     email: 'bob@example.com',
-    //     token: 'token_2',
-    //     isActive: false,
-    //     isConnected: false,
-    //     isRegister: true,
-    //     userType: UserType.passenger,
-    //     cars: [],
-    //   ),
-    //   User(
-    //     id: '3',
-    //     name: 'Charlie Brown',
-    //     email: 'charlie@example.com',
-    //     token: 'token_3',
-    //     isActive: true,
-    //     isConnected: true,
-    //     isRegister: true,
-    //     userType: UserType.driver,
-    //     cars: [],
-    //   ),
-    //   User(
-    //     id: '4',
-    //     name: 'Diana Prince',
-    //     email: 'diana@example.com',
-    //     token: 'token_4',
-    //     isActive: false,
-    //     isConnected: false,
-    //     isRegister: true,
-    //     userType: UserType.passenger,
-    //     cars: [],
-    //   ),
-    //   User(
-    //     id: '5',
-    //     name: 'Eve Adams',
-    //     email: 'eve@example.com',
-    //     token: 'token_5',
-    //     isActive: true,
-    //     isConnected: true,
-    //     isRegister: true,
-    //     userType: UserType.driver,
-    //     cars: [],
-    //   ),
-    //   User(
-    //     id: '6',
-    //     name: 'Frank Castle',
-    //     email: 'frank@example.com',
-    //     token: 'token_6',
-    //     isActive: false,
-    //     isConnected: false,
-    //     isRegister: true,
-    //     userType: UserType.passenger,
-    //     cars: [],
-    //   ),
-    //   User(
-    //     id: '7',
-    //     name: 'Grace Hopper',
-    //     email: 'grace@example.com',
-    //     token: 'token_7',
-    //     isActive: true,
-    //     isConnected: true,
-    //     isRegister: true,
-    //     userType: UserType.driver,
-    //     cars: [],
-    //   ),
-    //   User(
-    //     id: '8',
-    //     name: 'Hank Pym',
-    //     email: 'hank@example.com',
-    //     token: 'token_8',
-    //     isActive: false,
-    //     isConnected: false,
-    //     isRegister: true,
-    //     userType: UserType.passenger,
-    //     cars: [],
-    //   ),
-    //   User(
-    //     id: '9',
-    //     name: 'Ivy Green',
-    //     email: 'ivy@example.com',
-    //     token: 'token_9',
-    //     isActive: true,
-    //     isConnected: true,
-    //     isRegister: true,
-    //     userType: UserType.driver,
-    //     cars: [],
-    //   ),
-    // ];
+    try {
+      final userList = await DriverServices.getUsers();
+      final conversations = await DriverServices.getConversations();
+      print(conversations);
+      emit(SectionLoaded(
+        users: userList,
+        conversations: conversations,
+      ));
+    } catch (e) {
+      emit(ChatError(message: e.toString()));
+    }
   }
 }

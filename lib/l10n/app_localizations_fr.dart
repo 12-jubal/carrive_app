@@ -296,4 +296,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get uploadFile => 'Charger un fichier';
+
+  @override
+  String get noMessage => 'Aucun Message';
 }

@@ -85,6 +85,8 @@
     "completeCreation" : "Veuillez compléter la création du trajet",
     "post" : "Poster",
     "saveInDraft" : "Enregistrer en brouillon",
+    
+    "@_SEARCH_RIDE_PAGE": {},
         
     "@_PROFILE_PAGE": {},
     "profile" : "Profil",
@@ -114,5 +116,8 @@
 
     "@_UPLOAD_DOCUMENTS_PAGE": {},
     "uploadImage" : "Charger une image",
-    "uploadFile" : "Charger un fichier"
+    "uploadFile" : "Charger un fichier",
+
+    "@_CONVERSATION_PAGE" :{},
+    "noMessage" : "Aucun Message"
 }
