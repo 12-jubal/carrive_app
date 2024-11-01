@@ -10,7 +10,7 @@ class AuthService {
   AuthService._();
 
   String get authUrl {
-    return 'http://192.168.100.8:8082';
+    return 'http://172.20.10.2:8082';
   }
 
   // Method to login a user

@@ -1,14 +1,19 @@
 import 'package:carrive_app/l10n/app_localizations.dart';
 import 'package:carrive_app/src/data/models/user.dart';
-import 'package:carrive_app/src/presentation/logic/chat/chat_cubit.dart';
+import 'package:carrive_app/src/presentation/logic/chat/chat_cubit_p.dart';
 import 'package:carrive_app/src/presentation/logic/chat/chat_state.dart';
+import 'package:carrive_app/src/presentation/logic/chat/chat_state_p.dart';
+import 'package:carrive_app/src/presentation/screens/chat/a_conversation.dart';
+import 'package:carrive_app/src/utils/app_navigator.dart';
 import 'package:carrive_app/src/utils/components/custom_screen.dart';
 import 'package:carrive_app/src/utils/spacing.dart';
 import 'package:carrive_app/src/utils/style/colors.dart';
 import 'package:carrive_app/src/utils/style/text_styles.dart';
+import 'package:carrive_app/src/utils/widgets/chat_tile.dart';
 import 'package:carrive_app/src/utils/widgets/custom_appbar.dart';
 import 'package:carrive_app/src/utils/widgets/custom_bottom_sheet.dart';
 import 'package:carrive_app/src/utils/widgets/custom_buttons.dart';
+import 'package:carrive_app/src/utils/widgets/custom_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -22,15 +27,15 @@ class PassengerChat extends StatelessWidget {
   Widget build(BuildContext context) {
     AppLocalizations locale = AppLocalizations.of(context)!;
     return BlocProvider(
-      create: (context) => ChatCubit(locale: locale),
-      child: BlocConsumer<ChatCubit, ChatState>(
+      create: (context) => PChatCubit(locale: locale),
+      child: BlocConsumer<PChatCubit, PChatState>(
         listener: (context, state) {},
         builder: (context, state) {
-          final cubit = context.read<ChatCubit>();
+          final cubit = context.read<PChatCubit>();
           final locale = AppLocalizations.of(context)!;
           return CustomScreen(
-            isLoading: state is ChatLoading,
-            loadingMessage: state is ChatLoading ? state.message : '',
+            isLoading: state is PChatLoading,
+            loadingMessage: state is PChatLoading ? state.message : '',
             child: Scaffold(
               body: SafeArea(
                 child: Stack(
@@ -44,67 +49,96 @@ class PassengerChat extends StatelessWidget {
                           // SingleChildScrollView(
                           //   child:
                           Padding(
-                        padding: EdgeInsets.only(top: 20.h),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Image.asset(
-                              'assets/images/empty_mail.png',
-                              height: 200.h,
-                              width: 200.w,
-                            ),
-                            const Spacing(height: 24),
-                            Text(
-                              locale.noChatsRecommendations,
-                              textAlign: TextAlign.center,
-                              style: AppTextStyles.body3.copyWith(
-                                color: AppColors.black_700,
-                              ),
-                            ),
-                            const Spacing(height: 24),
+                              padding: EdgeInsets.only(top: 20.h),
+                              child: state is PSectionLoaded
+                                  ? state.conversations.isEmpty
+                                      ? Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            // if (state is ChatLoaded && state is ConversationsLoaded)
+                                            //   state.
+                                            Image.asset(
+                                              'assets/images/empty_mail.png',
+                                              height: 200.h,
+                                              width: 200.w,
+                                            ),
+                                            const Spacing(height: 24),
+                                            Text(
+                                              locale.noChatsRecommendations,
+                                              textAlign: TextAlign.center,
+                                              style:
+                                                  AppTextStyles.body3.copyWith(
+                                                color: AppColors.black_700,
+                                              ),
+                                            ),
+                                            const Spacing(height: 24),
 
-                            CustomButton(
-                              onTap: () {
-                                CustomUserBottomSheet.showusers(
-                                  context,
-                                  title: locale.newMessage,
-                                  searchHintText: locale.searchUser,
-                                  onChanged: (value) {},
-                                  me: user,
-                                  users: state is ChatLoaded ? state.users : [],
-                                );
-                              },
-                              label: locale.startChat,
-                            ),
-                            // Search Text Field
-                            // CustomTextField(
-                            //   hint: 'Search',
-                            //   onChanged: (value) {},
-                            //   textEditingController:
-                            //       cubit.searchTextEditingController,
-                            //   suffix: true,
-                            //   suffixIconString: 'assets/icons/search.svg',
-                            // ),
-                            // const Spacing(height: 24),
-                            // Chat List
-                            // const ChatTile(
-                            //   hasRead: false,
-                            //   otherUserName: 'John Landom',
-                            //   time: '03:10',
-                            //   lastMessage:
-                            //       'Hello, g please can you help me find a suitable driver that I could always search for when I wish to travel to Toronto',
-                            // ),
-                            // const Spacing(height: 16),
-                            // const ChatTile(
-                            //   hasRead: true,
-                            //   otherUserName: 'John Landom',
-                            //   time: '03:10',
-                            //   lastMessage:
-                            //       'Hello, g please can you help me find a suitable driver that I could always search for when I wish to travel to Toronto',
-                            // ),
-                          ],
-                        ),
-                      ),
+                                            CustomButton(
+                                              onTap: () {
+                                                CustomUserBottomSheet.showusers(
+                                                  context,
+                                                  title: locale.newMessage,
+                                                  searchHintText:
+                                                      locale.searchUser,
+                                                  onChanged: (value) {},
+                                                  me: user,
+                                                  users: state is ChatLoaded
+                                                      ? state.users
+                                                      : [],
+                                                );
+                                              },
+                                              label: locale.startChat,
+                                            ),
+                                          ],
+                                        )
+                                      : Column(
+                                          children: [
+                                            // Search Text Field
+                                            CustomTextField(
+                                              hint: 'Search',
+                                              onChanged: (value) {},
+                                              textEditingController: cubit
+                                                  .searchTextEditingController,
+                                              suffix: true,
+                                              suffixIconString:
+                                                  'assets/icons/search.svg',
+                                            ),
+                                            const Spacing(height: 24),
+                                            Expanded(
+                                              child: ListView.builder(
+                                                itemCount:
+                                                    state.conversations.length,
+                                                itemBuilder: (context, index) {
+                                                  final convo =
+                                                      state.conversations[state
+                                                              .conversations
+                                                              .length -
+                                                          1 -
+                                                          index];
+                                                  return ChatTile(
+                                                    onTap: () {
+                                                      AppNavigator.push(
+                                                          context,
+                                                          Conversation(
+                                                              me: user,
+                                                              other:
+                                                                  convo.user1));
+                                                    },
+                                                    otherUserName:
+                                                        convo.user1.name,
+                                                    time:
+                                                        "${convo.messages.last.time.hour} : ${convo.messages.last.time.minute}",
+                                                    lastMessage: convo
+                                                        .messages.last.content,
+                                                    hasRead: true,
+                                                  );
+                                                },
+                                              ),
+                                            ),
+                                          ],
+                                        )
+                                  : null),
                       // ),
                     ),
                     // Placing the Chat App Bar

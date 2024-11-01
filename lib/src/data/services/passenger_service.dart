@@ -8,7 +8,7 @@ class PassengerService {
   PassengerService._();
 
   String get passengerUrl {
-    return 'http://192.168.100.8:8086';
+    return 'http://172.20.10.2:8086';
   }
 
   static Future<void> passengerLogout() async {
@@ -92,6 +92,44 @@ class PassengerService {
             ConversationModel.fromJson(jsonResponse);
         return conversation;
         // return true;
+      } else {
+        log('${response.statusCode}: ${response.statusMessage}');
+        throw Exception('${response.statusCode}: ${response.statusMessage}');
+      }
+    } catch (e) {
+      log(e.toString());
+      throw Exception(e.toString());
+    }
+  }
+
+  static Future<List<ConversationModel>> getConversations() async {
+    try {
+      log('Calling API to get list of conversations');
+      final response = await APIService.instance.request(
+        requiresToken: true,
+        myBaseUrl: PassengerService._().passengerUrl,
+        endpoint: '/driver/list-conversations',
+        DioMethod.post,
+      );
+      if (response.statusCode == 200) {
+        var jsonResponse = response.data['data'];
+        // log('jsonResponse data type: ${jsonResponse.runtimeType}');
+        // Use .map() to transform each item in jsonResponse to a User instance
+        // List<User> users =
+        //     jsonResponse.map((user) => User.fromJson(user)).toList();
+        // return users;
+        List<ConversationModel> conversations = [];
+        for (var conversation in jsonResponse) {
+          conversations.add(ConversationModel.fromJson(conversation));
+          // print(user);
+        }
+        return conversations;
+        // if (jsonResponse != null && jsonResponse is List) {
+
+        // } else {
+        //   log('Error: Data field is not a list or is null');
+        //   throw Exception('Data field is not a list or is null');
+        // }
       } else {
         log('${response.statusCode}: ${response.statusMessage}');
         throw Exception('${response.statusCode}: ${response.statusMessage}');

@@ -9,7 +9,7 @@ class DriverServices {
   DriverServices._();
 
   String get driverUrl {
-    return 'http://192.168.100.8:8085';
+    return 'http://172.20.10.2:8085';
   }
 
   static Future<Ride> createRide({

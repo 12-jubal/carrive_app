@@ -27,7 +27,7 @@ class ChatTile extends StatelessWidget {
       onTap: onTap,
       child: Container(
         padding: EdgeInsets.only(bottom: 8.h),
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             // border: Border.only()
             ),
         child: Row(
