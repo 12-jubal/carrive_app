@@ -10,6 +10,7 @@ import 'package:carrive_app/src/utils/style/text_styles.dart';
 import 'package:carrive_app/src/utils/widgets/custom_appbar.dart';
 import 'package:carrive_app/src/utils/widgets/explore_card.dart';
 import 'package:carrive_app/src/utils/widgets/leading_card.dart';
+import 'package:carrive_app/src/utils/widgets/trip_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -110,47 +111,39 @@ class PassengerExploreScreen extends StatelessWidget {
                                   ],
                                 ),
                                 const Spacing(height: 8),
-                                Row(
-                                  children: [
-                                    Container(
-                                      padding: EdgeInsets.all(12.r),
-                                      decoration: ShapeDecoration(
-                                        color: AppColors.primary_100,
-                                        shape: RoundedRectangleBorder(
-                                          side: const BorderSide(
-                                            width: 0.75,
-                                            color: AppColors.primarySource,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(8.r),
-                                        ),
+                                SingleChildScrollView(
+                                  scrollDirection: Axis.horizontal,
+                                  child: Row(
+                                    // mainAxisAlignment: MainAxisAlignment.start,
+                                    // crossAxisAlignment:
+                                    //     CrossAxisAlignment.start,
+                                    children: [
+                                      TripCard(
+                                        imageLink: 'assets/icons/school.svg',
+                                        label: locale.school,
                                       ),
-                                      child: Column(
-                                        children: [
-                                          SvgPicture.asset(
-                                            'assets/icons/school.svg',
-                                            height: 24.h,
-                                            width: 24.w,
-                                          ),
-                                          Text(
-                                            'School',
-                                            style: AppTextStyles.body3.copyWith(
-                                              color: AppColors.primarySource,
-                                            ),
-                                          ),
-                                        ],
+                                      const Spacing(width: 24),
+                                      TripCard(
+                                        imageLink:
+                                            'assets/icons/fitness_center.svg',
+                                        label: locale.gym,
                                       ),
-                                    )
-                                  ],
+                                      const Spacing(width: 24),
+                                      TripCard(
+                                        imageLink: 'assets/icons/church.svg',
+                                        label: locale.church,
+                                      ),
+                                      const Spacing(width: 24),
+                                      TripCard(
+                                        imageLink: 'assets/icons/office.svg',
+                                        label: locale.work,
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ],
                             ),
                             Spacing(height: 24.h),
-
-                            const Text('Explore Screen'),
-                            Text(user.name),
-                            Text(user.email),
-                            Text('${user.userType}'),
                           ],
                         ),
                       ),

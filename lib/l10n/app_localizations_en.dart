@@ -268,6 +268,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get french => 'French';
 
   @override
+  String get favorites => 'Favorites';
+
+  @override
   String get documents => 'Documents';
 
   @override

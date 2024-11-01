@@ -115,7 +115,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get chats => 'Conversations';
 
   @override
-  String get noChatsRecommendations => 'You have no chats please search users to begin a conversation';
+  String get noChatsRecommendations => 'Vous n\'avez pas de conversations, veuillez rechercher des utilisateurs pour commencer une conversation';
 
   @override
   String get startChat => 'Commencer une Conversation';
@@ -266,6 +266,9 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get french => 'Français';
+
+  @override
+  String get favorites => 'Favoris';
 
   @override
   String get documents => 'Documents';

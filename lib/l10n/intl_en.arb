@@ -101,6 +101,7 @@
     "darkMode" : "Dark Mode",
     "english" : "English",
     "french" : "French",
+    "favorites" : "Favorites",
 
     "@_MYDOCUMENTS_PAGE": {},
     "documents" : "Documents",

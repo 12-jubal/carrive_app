@@ -117,6 +117,7 @@ class DriverProfileScreen extends StatelessWidget {
                                     ),
                                     Option(
                                       onTap: () {},
+                                      toggle: false,
                                       iconString:
                                           'assets/icons/notifications_active.svg',
                                       title: locale.notifications,

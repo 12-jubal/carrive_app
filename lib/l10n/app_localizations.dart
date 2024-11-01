@@ -617,6 +617,12 @@ abstract class AppLocalizations {
   /// **'French'**
   String get french;
 
+  /// No description provided for @favorites.
+  ///
+  /// In en, this message translates to:
+  /// **'Favorites'**
+  String get favorites;
+
   /// No description provided for @documents.
   ///
   /// In en, this message translates to:
