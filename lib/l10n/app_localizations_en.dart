@@ -58,7 +58,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get doYouWantTo => 'Do you want to create a|Have an easy way to get start now';
 
   @override
+  String get areYouReady => 'Are you ready for a|Have an easy get start now';
+
+  @override
   String get createRide => 'Create Ride';
+
+  @override
+  String get searchRide => 'Search Ride';
 
   @override
   String get myStats => 'My Stats';
@@ -80,6 +86,30 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get seats => 'Seats';
+
+  @override
+  String get explore => 'Explore';
+
+  @override
+  String get shipment => 'Shipment';
+
+  @override
+  String get myTrips => 'My Trips';
+
+  @override
+  String get school => 'School';
+
+  @override
+  String get gym => 'Gym';
+
+  @override
+  String get work => 'Work';
+
+  @override
+  String get home => 'Home';
+
+  @override
+  String get church => 'Church';
 
   @override
   String get chats => 'Chats';

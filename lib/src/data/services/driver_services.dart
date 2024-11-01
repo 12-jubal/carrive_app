@@ -8,7 +8,7 @@ class DriverServices {
   DriverServices._();
 
   String get driverUrl {
-    return 'https://5d94-154-72-162-124.ngrok-free.app';
+    return 'https://2b00-154-72-162-124.ngrok-free.app';
   }
 
   static Future<Ride> createRide({

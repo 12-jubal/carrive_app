@@ -197,11 +197,23 @@ abstract class AppLocalizations {
   /// **'Do you want to create a|Have an easy way to get start now'**
   String get doYouWantTo;
 
+  /// No description provided for @areYouReady.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you ready for a|Have an easy get start now'**
+  String get areYouReady;
+
   /// No description provided for @createRide.
   ///
   /// In en, this message translates to:
   /// **'Create Ride'**
   String get createRide;
+
+  /// No description provided for @searchRide.
+  ///
+  /// In en, this message translates to:
+  /// **'Search Ride'**
+  String get searchRide;
 
   /// No description provided for @myStats.
   ///
@@ -244,6 +256,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Seats'**
   String get seats;
+
+  /// No description provided for @explore.
+  ///
+  /// In en, this message translates to:
+  /// **'Explore'**
+  String get explore;
+
+  /// No description provided for @shipment.
+  ///
+  /// In en, this message translates to:
+  /// **'Shipment'**
+  String get shipment;
+
+  /// No description provided for @myTrips.
+  ///
+  /// In en, this message translates to:
+  /// **'My Trips'**
+  String get myTrips;
+
+  /// No description provided for @school.
+  ///
+  /// In en, this message translates to:
+  /// **'School'**
+  String get school;
+
+  /// No description provided for @gym.
+  ///
+  /// In en, this message translates to:
+  /// **'Gym'**
+  String get gym;
+
+  /// No description provided for @work.
+  ///
+  /// In en, this message translates to:
+  /// **'Work'**
+  String get work;
+
+  /// No description provided for @home.
+  ///
+  /// In en, this message translates to:
+  /// **'Home'**
+  String get home;
+
+  /// No description provided for @church.
+  ///
+  /// In en, this message translates to:
+  /// **'Church'**
+  String get church;
 
   /// No description provided for @chats.
   ///

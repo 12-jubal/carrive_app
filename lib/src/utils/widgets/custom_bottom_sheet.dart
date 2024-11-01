@@ -7,7 +7,6 @@ import 'package:carrive_app/src/data/models/user.dart';
 import 'package:carrive_app/src/data/services/places_services.dart';
 import 'package:carrive_app/src/presentation/screens/chat/a_conversation.dart';
 import 'package:carrive_app/src/utils/app_navigator.dart';
-import 'package:carrive_app/src/utils/constants/enums.dart';
 import 'package:carrive_app/src/utils/spacing.dart';
 import 'package:carrive_app/src/utils/style/colors.dart';
 import 'package:carrive_app/src/utils/style/text_styles.dart';

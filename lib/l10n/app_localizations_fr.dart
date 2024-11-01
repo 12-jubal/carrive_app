@@ -58,7 +58,13 @@ class AppLocalizationsFr extends AppLocalizations {
   String get doYouWantTo => 'Voulez-vous créer un|Commencez maintenant';
 
   @override
+  String get areYouReady => 'Êtes-vous prêt pour un|Commencez maintenant';
+
+  @override
   String get createRide => 'Créer un trajet';
+
+  @override
+  String get searchRide => 'Recherche trajet';
 
   @override
   String get myStats => 'Mes Stats';
@@ -80,6 +86,30 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get seats => 'Places';
+
+  @override
+  String get explore => 'Explorer';
+
+  @override
+  String get shipment => 'Expédition';
+
+  @override
+  String get myTrips => 'Mes trajets';
+
+  @override
+  String get school => 'École';
+
+  @override
+  String get gym => 'Gym';
+
+  @override
+  String get work => 'Travail';
+
+  @override
+  String get home => 'Maison';
+
+  @override
+  String get church => 'Église';
 
   @override
   String get chats => 'Conversations';

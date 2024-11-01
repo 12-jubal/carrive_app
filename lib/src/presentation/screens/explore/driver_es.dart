@@ -174,6 +174,7 @@ class DriverExploreScreen extends StatelessWidget {
                       ),
                     ),
                   ),
+                  // Appbar
                   Positioned(
                     top: 0,
                     left: 0,
