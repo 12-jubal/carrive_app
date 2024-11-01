@@ -2,6 +2,8 @@ import 'package:carrive_app/l10n/app_localizations.dart';
 import 'package:carrive_app/src/data/models/user.dart';
 import 'package:carrive_app/src/presentation/logic/profile/profile_cubit.dart';
 import 'package:carrive_app/src/presentation/logic/profile/profile_state.dart';
+import 'package:carrive_app/src/presentation/screens/welcome_screen.dart';
+import 'package:carrive_app/src/utils/app_navigator.dart';
 import 'package:carrive_app/src/utils/components/bloc_options.dart';
 import 'package:carrive_app/src/utils/components/custom_screen.dart';
 import 'package:carrive_app/src/utils/components/option.dart';
@@ -30,7 +32,11 @@ class PassengerProfileScreen extends StatelessWidget {
         locale: locale,
       ),
       child: BlocConsumer<ProfileCubit, ProfileState>(
-        listener: (context, state) {},
+        listener: (context, state) {
+          if (state is ProfileSignOut) {
+            AppNavigator.pushReplacement(context, const WelcomeScreen());
+          }
+        },
         builder: (context, state) {
           final cubit = context.read<ProfileCubit>();
           final locale = AppLocalizations.of(context)!;

@@ -3,6 +3,7 @@ import 'package:carrive_app/l10n/app_localizations.dart';
 import 'package:carrive_app/src/data/models/user.dart';
 import 'package:carrive_app/src/presentation/logic/create_ride/create_ride_cubit.dart';
 import 'package:carrive_app/src/presentation/logic/create_ride/create_ride_state.dart';
+import 'package:carrive_app/src/presentation/root/root_screen.dart';
 import 'package:carrive_app/src/utils/app_navigator.dart';
 import 'package:carrive_app/src/utils/components/bloc_options.dart';
 import 'package:carrive_app/src/utils/components/custom_screen.dart';
@@ -46,13 +47,16 @@ class _CreateRideState extends State<CreateRide> {
             );
           }
           if (state is ConfirmRideCreation) {
-            CustomButtonBottom.showOptions(
-              context,
-              primaryText: AppLocalizations.of(context)!.post,
-              secondaryText: AppLocalizations.of(context)!.saveInDraft,
-              primaryonTap: context.read<CreateRideCubit>().createRide,
-              secondaryonTap: context.read<CreateRideCubit>().saveRide,
-            );
+            // CustomButtonBottom.showOptions(
+            //   context,
+            //   primaryText: AppLocalizations.of(context)!.post,
+            //   secondaryText: AppLocalizations.of(context)!.saveInDraft,
+            //   primaryonTap: () => context.read<CreateRideCubit>().createRide(),
+            //   secondaryonTap: context.read<CreateRideCubit>().saveRide,
+            // );
+          }
+          if (state is CreateRideSuccess) {
+            AppNavigator.push(context, RootScreen(user: widget.user));
           }
         },
         builder: (BuildContext context, state) {
@@ -258,29 +262,16 @@ class _CreateRideState extends State<CreateRide> {
                         shadow: true,
                         trailing: GestureDetector(
                           onTap: () {
-                            cubit.checkfields(
-                                // startDate: date,
-                                // startTime: time,
-                                // tariff: state.price,
-                                // startCity: pickUp,
-                                // destinationCity: destination,
-                                // capacity: 5,
-                                // distance: state.distance,
-                                // acceptedPackage: state.allowExpedition,
-                                // isPublished: false,
-                                );
-                            // CustomButtonBottom.showOptions(context);
-                            // cubit.createRide(
-                            //   startDate: startDate,
-                            //   startTime: startTime,
-                            //   tariff: tariff,
-                            //   startCity: startCity,
-                            //   destinationCity: destinationCity,
-                            //   capacity: capacity,
-                            //   distance: distance,
-                            //   acceptedPackage: acceptedPackage,
-                            //   isPublished: isPublished,
-                            // );
+                            cubit.createRide(
+                              date: date,
+                              time: time,
+                              price: double.parse(price),
+                              pickUp: pickUp,
+                              destination: destination,
+                              allowBaggage: state.allowExpedition,
+                              capacity: int.parse(capacity),
+                              distance: state.distance,
+                            );
                           },
                           child: Text(
                             locale.ok,

@@ -676,6 +676,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Upload File'**
   String get uploadFile;
+
+  /// No description provided for @noMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Aucun Message'**
+  String get noMessage;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -1,3 +1,5 @@
+import 'package:carrive_app/src/data/models/conversation.dart';
+
 class ConversationState {}
 
 class ConversationInitial extends ConversationState {}
@@ -9,9 +11,9 @@ class ConversationLoading extends ConversationState {
 }
 
 class ConversationLoaded extends ConversationState {
-  // final List<User> users;
+  final ConversationModel conversation;
 
-  // ConversationLoaded({required this.users});
+  ConversationLoaded({required this.conversation});
 }
 
 class ConversationError extends ConversationState {

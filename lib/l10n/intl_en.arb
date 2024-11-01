@@ -85,6 +85,8 @@
     "completeCreation" : "Please complete the ride creation",
     "post" : "Post",
     "saveInDraft" : "Save in draft",
+
+    "@_SEARCH_RIDE_PAGE": {},
     
     "@_PROFILE_PAGE": {},
     "profile" : "Profile",
@@ -114,5 +116,8 @@
 
     "@_UPLOAD_DOCUMENTS_PAGE": {},
     "uploadImage" : "Upload Image",
-    "uploadFile" : "Upload File"
+    "uploadFile" : "Upload File",
+
+    "@_CONVERSATION_PAGE" :{},
+    "noMessage" : "Aucun Message"
 }

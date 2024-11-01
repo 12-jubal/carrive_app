@@ -296,4 +296,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get uploadFile => 'Upload File';
+
+  @override
+  String get noMessage => 'Aucun Message';
 }

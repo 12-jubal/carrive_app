@@ -340,7 +340,7 @@ class _CustomUserBottomSheetState extends State<CustomUserBottomSheet> {
 
     // Filter the list based on the input
     setState(() {
-      listOfSortedUsers = listOfSortedUsers
+      listOfSortedUsers = widget.users
           .where((user) =>
               user.name.toLowerCase().contains(input.toLowerCase().trim()))
           .take(8)

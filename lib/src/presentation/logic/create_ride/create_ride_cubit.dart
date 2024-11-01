@@ -140,43 +140,50 @@ class CreateRideCubit extends Cubit<CreateRideState> {
     }
   }
 
-  void createRide() async {
-    if (checkfields()) {
-      final pickUp = state.pickupLocation!.mainText;
-      final destination = state.destinationLocation!.mainText;
-      final price = double.parse(state.price.toStringAsFixed(2));
-      final date = state.departureDate?.toString().split(' ')[0] ??
-          DateTime.now().toString().split(' ')[0];
-      final time =
-          state.departureTime?.toString().split(' ')[1].split('.')[0] ??
-              DateTime.now().toString().split(' ')[1].split('.')[0];
+  void createRide({
+    required String date,
+    required String time,
+    required double price,
+    required String pickUp,
+    required String destination,
+    // required String car,
+    required bool allowBaggage,
+    required int capacity,
+    required double distance,
+  }) async {
+    emit(CreateRideLoading(message: localizations.creatingRide));
 
-      // final car = state.vehicle;
-      final allowBaggage = state.allowExpedition;
-      final capacity = state.numberOfPlaces;
-      final distance = state.distance;
-      // emit(state.copyWith()); // Maintain the state if any field is empty
-      emit(CreateRideLoading(message: localizations.creatingRide));
-      try {
-        Ride ride = await DriverServices.createRide(
-          startDate: date,
-          startTime: time,
-          tariff: price,
-          startCity: pickUp,
-          destinationCity: destination,
-          capacity: capacity,
-          distance: distance,
-          acceptPackage: allowBaggage,
-          isPublished: true,
-        );
-        emit(CreateRideSuccess(ride: ride));
-      } catch (e) {
-        emit(CreateRideError(message: e.toString()));
-      }
+    try {
+      Ride ride = await DriverServices.createRide(
+        startDate: date,
+        startTime: time,
+        tariff: price, //double
+        startCity: pickUp,
+        destinationCity: destination,
+        capacity: capacity, // int
+        distance: distance, //int
+        acceptPackage: allowBaggage,
+        isPublished: true,
+      );
+      emit(CreateRideSuccess(ride: ride));
+    } catch (e) {
+      emit(CreateRideError(message: e.toString()));
+      // emit(state.copyWith(
+      //   pickupLocation: pickUp,
+      //   destinationLocation: destination,
+      //   price: price,
+      //   departureDate: date,
+      //   departureTime: time,
+      //   vehicle: car,
+      //   allowExpedition: allowBaggage,
+      //   numberOfPlaces: capacity,
+      //   distance: distance,
+      // ));
     }
   }
 
   void saveRide() async {
+    emit(CreateRideLoading(message: localizations.creatingRide));
     if (checkfields()) {
       final pickUp = state.pickupLocation!.mainText;
       final destination = state.destinationLocation!.mainText;
@@ -192,7 +199,7 @@ class CreateRideCubit extends Cubit<CreateRideState> {
       final capacity = state.numberOfPlaces;
       final distance = state.distance;
       // emit(state.copyWith()); // Maintain the state if any field is empty
-      emit(CreateRideLoading(message: localizations.creatingRide));
+
       try {
         Ride ride = await DriverServices.createRide(
           startDate: date,
