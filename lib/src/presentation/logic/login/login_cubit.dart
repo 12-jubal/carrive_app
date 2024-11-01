@@ -1,7 +1,11 @@
+import 'dart:convert';
+
+import 'package:carrive_app/l10n/app_localizations.dart';
 import 'package:carrive_app/src/data/models/user.dart';
 import 'package:carrive_app/src/data/services/auth_services.dart';
 import 'package:carrive_app/src/presentation/logic/login/login_state.dart';
 import 'package:carrive_app/src/utils/constants/enums.dart';
+import 'package:carrive_app/src/utils/storage/user_sp_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -56,13 +60,14 @@ class LoginCubit extends Cubit<LoginState> {
     ));
   }
 
-  Future<void> login() async {
+  Future<void> login({required BuildContext context}) async {
+    final locale = AppLocalizations.of(context)!;
     // Get the email and password from the TextEditingControllers
     final email = emailController.text;
     final password = passwordController.text;
 
     if (email.isEmpty || password.isEmpty) {
-      emit(LoginError(message: "Input all fields"));
+      emit(LoginError(message: locale.inputFields));
     } else if (validateEmail(email) == ValidationType.valid &&
         validatePassword(password) == ValidationType.valid) {
       emit(LoginLoading());
@@ -73,10 +78,13 @@ class LoginCubit extends Cubit<LoginState> {
           password: password,
         );
         if (user.isRegister == true) {
+          // Convert User object to JSON string
+          final userJson = jsonEncode(user.toJson());
+          await UserSharedPreferencesHelper.saveUser(userJson: userJson);
+
           emit(LoginSuccess(user: user));
         } else {
           // Send User to Confirm Email Screen to confirm their email.
-
           emit(LoginError(message: "User not registered to confirm email"));
         }
       } catch (e) {

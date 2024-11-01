@@ -1,3 +1,4 @@
+import 'package:carrive_app/src/data/models/car.dart';
 import 'package:carrive_app/src/utils/constants/enums.dart';
 
 class User {
@@ -8,12 +9,8 @@ class User {
   late final bool isActive;
   late final bool isRegister;
   late final bool isConnected;
-  // late final DateTime? registeredAt;
   late final UserType userType;
-  // late final String? carId;
-  // late final String? carMatricule;
-  // late final String? carModel;
-  // late final String? carColor;
+  late final List<Car> cars;
 
   User({
     required this.id,
@@ -23,12 +20,8 @@ class User {
     required this.isActive,
     required this.isConnected,
     required this.isRegister,
-    // required this.registeredAt,
     required this.userType,
-    // this.carId,
-    // this.carMatricule,
-    // this.carModel,
-    // this.carColor,
+    required this.cars,
   });
 
   UserType typeFromString(String usertype) {
@@ -36,6 +29,14 @@ class User {
       return UserType.driver;
     } else {
       return UserType.passenger;
+    }
+  }
+
+  String typeToString(UserType usertype) {
+    if (usertype == UserType.driver) {
+      return 'DRIVER';
+    } else {
+      return 'PASSENGER';
     }
   }
 
@@ -47,16 +48,17 @@ class User {
     isActive = json['isActive'];
     isConnected = json['isConnected'];
     isRegister = json['isRegister'];
-    // registeredAt = DateTime.parse(json['registeredAt']);
     userType = typeFromString(json['userType']);
-    // carId = json['car_id'];
-    // carMatricule = json['car_matricule'];
-    // carModel = json['car_model'];
-    // carColor = json['car_color'];
+    cars = json['cars'] != null
+        ? (json['cars'] as List)
+            .map((carJson) => Car.fromJson(carJson))
+            .toList()
+        : [];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
+
     data['id'] = id;
     data['name'] = name;
     data['email'] = email;
@@ -64,12 +66,8 @@ class User {
     data['isActive'] = isActive;
     data['isConnected'] = isConnected;
     data['isRegister'] = isRegister;
-    // data['registeredAt'] = registeredAt;
-    data['userType'] = userType;
-    // data['car_id'] = carId;
-    // data['car_matricule'] = carMatricule;
-    // data['car_model'] = carModel;
-    // data['car_color'] = carColor;
+    data['userType'] = typeToString(userType);
+    data['cars'] = cars;
     return data;
   }
 

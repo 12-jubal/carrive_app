@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:carrive_app/src/data/models/user.dart';
 import 'package:carrive_app/src/data/services/auth_services.dart';
 import 'package:carrive_app/src/presentation/logic/new_password/new_pass_state.dart';

@@ -2,21 +2,15 @@ import 'dart:developer';
 import 'package:carrive_app/src/data/models/response.dart';
 import 'package:carrive_app/src/data/models/user.dart';
 import 'package:carrive_app/src/helpers/api_helpers.dart';
+import 'package:carrive_app/src/helpers/convertion_helpers.dart';
 import 'package:carrive_app/src/utils/constants/enums.dart';
 
 class AuthService {
   // Singleton pattern
   AuthService._();
-  // method to convert our enum to a string
-  static String userTypeToString(UserType userType) {
-    switch (userType) {
-      case UserType.driver:
-        return 'DRIVER';
-      case UserType.passenger:
-        return 'PASSENGER';
-      default:
-        return 'NULL';
-    }
+
+  String get authUrl {
+    return 'https://f92d-154-72-162-124.ngrok-free.app';
   }
 
   // Method to login a user
@@ -30,6 +24,7 @@ class AuthService {
       // Call the API to login the user
       log('Calling API to login user');
       final response = await APIService.instance.request(
+        myBaseUrl: AuthService._().authUrl,
         endpoint: '/auth/login',
         DioMethod.post,
         param: {
@@ -48,6 +43,9 @@ class AuthService {
         throw Exception('${response.statusCode}: ${response.statusMessage}');
       }
     } catch (e) {
+      // if (e is DioException) {
+      //   log('DioException: ${e.toString()}');
+      // }
       log(e.toString());
       throw Exception(e.toString());
     }
@@ -58,8 +56,12 @@ class AuthService {
     required String name,
     required String email,
     required String password,
-    required String confirmPassowrd,
+    required String confirmPassword,
     required UserType userType,
+    String? idCar,
+    String? matriculation,
+    String? color,
+    String? carModel,
   }) async {
     User user;
     APIResponse apiResponse;
@@ -67,14 +69,19 @@ class AuthService {
       // Call the API to register the user
       log('Calling API to register user');
       final response = await APIService.instance.request(
+        myBaseUrl: AuthService._().authUrl,
         endpoint: '/auth/sign-up',
         DioMethod.post,
         param: {
           'name': name,
           'email': email,
           'password': password,
-          'confirmPassword': confirmPassowrd,
-          'userType': userTypeToString(userType),
+          'confirmPassword': confirmPassword,
+          'userType': ConvertionHelpers.userTypeToString(userType),
+          'idCar': idCar,
+          'matriculation': matriculation,
+          'color': color,
+          'carModel': carModel,
         },
       );
 
@@ -102,6 +109,7 @@ class AuthService {
       // Call the API to confirm the email
       log('Calling API to confirm email');
       final response = await APIService.instance.request(
+        myBaseUrl: AuthService._().authUrl,
         endpoint: '/auth/valid-register?code=$code',
         DioMethod.post,
       );
@@ -127,6 +135,7 @@ class AuthService {
       // Calling Forgot Password API
       log("Calling Forgot Password API");
       final response = await APIService.instance.request(
+        myBaseUrl: AuthService._().authUrl,
         endpoint: '/auth/forgot-password?email=$email',
         DioMethod.post,
       );
@@ -152,6 +161,7 @@ class AuthService {
       // Call the API to resend the email
       log('Calling API to Validate Reset Code');
       final response = await APIService.instance.request(
+        myBaseUrl: AuthService._().authUrl,
         endpoint: '/auth/validate-reset?code=$code',
         DioMethod.post,
       );
@@ -179,6 +189,7 @@ class AuthService {
       // Call the API to reset the password
       log('Calling API to reset password');
       final response = await APIService.instance.request(
+        myBaseUrl: AuthService._().authUrl,
         endpoint:
             '/auth/reset-password?id=$userId&password=$password&confirm_password=$confirmPassword',
         DioMethod.post,

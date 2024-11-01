@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:carrive_app/l10n/app_localizations.dart';
 import 'package:carrive_app/src/presentation/screens/login_screen.dart';
 import 'package:carrive_app/src/presentation/screens/signup_screen.dart';
 import 'package:carrive_app/src/utils/app_navigator.dart';
@@ -29,6 +30,7 @@ class WelcomeScreen extends StatelessWidget {
         listener: (context, state) {},
         builder: (context, state) {
           final cubit = context.read<WelcomeCubit>();
+          final locale = AppLocalizations.of(context)!;
           return Scaffold(
             body: Padding(
               padding: EdgeInsets.symmetric(horizontal: 24.w),
@@ -42,7 +44,7 @@ class WelcomeScreen extends StatelessWidget {
                   ),
                   const Spacing(height: 20),
                   Text(
-                    "Choose how you  plan on using CARRIVE",
+                    locale.chooseHowToUseApp,
                     style: AppTextStyles.bodyTitle.copyWith(
                       fontWeight: FontWeight.normal,
                     ),
@@ -60,7 +62,7 @@ class WelcomeScreen extends StatelessWidget {
                             context.watch<WelcomeCubit>().state.selectedType ==
                                 UserType.driver,
                         imageLink: 'assets/images/driver.png',
-                        label: "Driver",
+                        label: locale.driver,
                       ),
                       const Spacing(width: 12),
                       UserTypeCard(
@@ -71,18 +73,18 @@ class WelcomeScreen extends StatelessWidget {
                             context.watch<WelcomeCubit>().state.selectedType ==
                                 UserType.passenger,
                         imageLink: 'assets/images/passenger.png',
-                        label: "Passenger",
+                        label: locale.passenger,
                       ),
                     ],
                   ),
                   const Spacing(height: 20),
                   CustomButton(
-                    label: "Continue",
+                    label: locale.continueText,
                     onTap: () {
                       if (cubit.state.selectedType == null) {
                         return CustomToast.showUserTypeToast(
                           type: ToastType.error,
-                          message: "Please select a user type",
+                          message: locale.selectUserType,
                         );
                       } else {
                         AppNavigator.push(
@@ -97,11 +99,11 @@ class WelcomeScreen extends StatelessWidget {
                   const Spacing(height: 20),
                   RichText(
                     text: TextSpan(
-                      text: 'Already have an account? ',
+                      text: locale.alreadyHaveAnAccount,
                       style: AppTextStyles.caption1,
                       children: [
                         TextSpan(
-                          text: 'Login',
+                          text: locale.login,
                           style: AppTextStyles.caption1.copyWith(
                             color: AppColors.primarySource,
                             decoration: TextDecoration.underline,

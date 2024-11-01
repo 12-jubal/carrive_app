@@ -1,3 +1,4 @@
+import 'package:carrive_app/l10n/app_localizations.dart';
 import 'package:carrive_app/src/presentation/screens/confirm_email_screen.dart';
 import 'package:carrive_app/src/utils/app_navigator.dart';
 import 'package:carrive_app/src/utils/widgets/car_color_selector.dart';
@@ -22,6 +23,7 @@ class SignupCarScreen extends StatelessWidget {
   final String name;
   final String email;
   final String password;
+  final String confirmPassword;
 
   const SignupCarScreen({
     super.key,
@@ -29,29 +31,33 @@ class SignupCarScreen extends StatelessWidget {
     required this.name,
     required this.email,
     required this.password,
+    required this.confirmPassword,
   });
 
   @override
   Widget build(BuildContext context) {
+    final locale = AppLocalizations.of(context)!;
     return BlocProvider(
-      create: (context) => SignupCubit(userType),
+      create: (context) =>
+          SignupCubit(userType: userType, localizations: locale),
       child: BlocConsumer<SignupCubit, SignupState>(
         listener: (context, state) {
           if (state is SignupError) {
             // Show error message
             CustomToast.showUserTypeToast(
               type: ToastType.error,
-              message: "Please input all fields",
+              message: state.message,
             );
           } else if (state is SignupSuccess) {
             CustomToast.showUserTypeToast(
               type: ToastType.success,
               message: "Confirm Registration",
             );
-            // AppNavigator.pushReplacement(
-            //   context,
-            //   const ConfirmEmailScreen(),
-            // );
+            // Navigate to the next screen
+            AppNavigator.pushReplacement(
+              context,
+              ConfirmEmailScreen(user: state.user),
+            );
           }
         },
         builder: (context, state) {
@@ -140,6 +146,7 @@ class SignupCarScreen extends StatelessWidget {
                                           name: name,
                                           email: email,
                                           password: password,
+                                          confirmPassword: confirmPassword,
                                         ),
                                         label: 'Sign Up',
                                       )

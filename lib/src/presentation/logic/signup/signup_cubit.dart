@@ -1,9 +1,14 @@
+import 'dart:convert';
+import 'package:carrive_app/l10n/app_localizations.dart';
 import 'package:carrive_app/src/data/models/user.dart';
 import 'package:carrive_app/src/data/services/auth_services.dart';
 import 'package:carrive_app/src/helpers/validation_helpers.dart';
 import 'package:carrive_app/src/presentation/logic/signup/signup_state.dart';
 import 'package:carrive_app/src/utils/constants/enums.dart';
+import 'package:carrive_app/src/utils/storage/user_sp_helper.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SignupCubit extends Cubit<SignupState> {
@@ -16,8 +21,10 @@ class SignupCubit extends Cubit<SignupState> {
   final TextEditingController confirmPasswordController =
       TextEditingController();
   final UserType userType;
+  final AppLocalizations localizations;
 
-  SignupCubit(this.userType) : super(SignupInitial());
+  SignupCubit({required this.userType, required this.localizations})
+      : super(SignupInitial());
 
   // Handle car color selection
   Color onCarColorSelected(Color color) {
@@ -102,7 +109,9 @@ class SignupCubit extends Cubit<SignupState> {
   }
 
   // Handle signup
-  void signup({required UserType userType}) async {
+  void signup({
+    required UserType userType,
+  }) async {
     final name = nameController.text;
     final email = emailController.text;
     final password = passwordController.text;
@@ -113,7 +122,7 @@ class SignupCubit extends Cubit<SignupState> {
         password.isEmpty ||
         confirmPassword.isEmpty) {
       emit(state.copyWith()); // Maintain the state if any field is empty
-      emit(const SignupError(message: "Input all fields"));
+      emit(SignupError(message: localizations.inputFields));
     } else if (password != confirmPassword) {
       emit(state.copyWith()); // Maintain the state if any field is empty
       emit(SignupUnmatched());
@@ -131,16 +140,20 @@ class SignupCubit extends Cubit<SignupState> {
           name: name,
           email: email,
           password: password,
-          confirmPassowrd: confirmPassword,
+          confirmPassword: confirmPassword,
           userType: userType,
         );
+        // Convert User object to JSON string
+        final userJson = jsonEncode(user.toJson());
+        await UserSharedPreferencesHelper.saveUser(userJson: userJson);
+
         emit(SignupSuccess(user: user));
       } catch (e) {
         emit(SignupError(message: e.toString()));
       }
     } else {
       emit(state.copyWith()); // Maintain the state if any field is empty
-      emit(const SignupError(message: "Unexpected Error"));
+      emit(SignupError(message: localizations.unExpectedError));
     }
   }
 
@@ -169,7 +182,12 @@ class SignupCubit extends Cubit<SignupState> {
       emit(state.copyWith()); // Maintain the state if any field is empty
       emit(
         CarRegister(
-            userType: userType, name: name, email: email, password: password),
+          userType: userType,
+          name: name,
+          email: email,
+          password: password,
+          confirmPassword: confirmPassword,
+        ),
       );
     } else {
       emit(state.copyWith()); // Maintain the state if any field is empty
@@ -177,7 +195,13 @@ class SignupCubit extends Cubit<SignupState> {
     }
   }
 
-  void driverSignup({required name, required email, required password}) {
+  // Handle driver's signup method
+  void driverSignup({
+    required name,
+    required email,
+    required password,
+    required confirmPassword,
+  }) async {
     final carId = carIdController.text;
     final carMatricule = carMatriculeController.text;
     Color? selectedColor = state.selectedColor;
@@ -189,7 +213,8 @@ class SignupCubit extends Cubit<SignupState> {
         carMatricule.isEmpty ||
         selectedColor == null ||
         selectedModel == null) {
-      emit(const SignupError(message: "Input all fields"));
+      // Emit error message
+      emit(SignupError(message: localizations.inputFields));
       // Emit the current state while preserving the selected values
       emit(state.copyWith(
         selectedModel: selectedModel,
@@ -199,16 +224,35 @@ class SignupCubit extends Cubit<SignupState> {
       ));
     } else {
       emit(SignupLoading());
-      Future.delayed(const Duration(seconds: 3), () {
-        // Call API for registration
-        // emit(SignupSuccess());
+      // Call API for registration
+      try {
+        User user = await AuthService.signup(
+          name: name,
+          email: email,
+          password: password,
+          confirmPassword: confirmPassword,
+          userType: userType,
+          idCar: carId,
+          matriculation: carMatricule,
+          color: selectedColor.toString().substring(8, 16),
+          carModel: selectedModel,
+        );
+        // Convert User object to JSON string
+        final userJson = jsonEncode(user.toJson());
+        await UserSharedPreferencesHelper.saveUser(userJson: userJson);
+
+        emit(SignupSuccess(user: user));
+      } catch (e) {
+        emit(SignupError(message: e.toString()));
+        // Emit the current state while preserving the selected values
         emit(state.copyWith(
           selectedModel: selectedModel,
           selectedColor: selectedColor,
           carMatricule: carMatricule,
           carId: carId,
         ));
-      });
+        // print(e);
+      }
     }
   }
 

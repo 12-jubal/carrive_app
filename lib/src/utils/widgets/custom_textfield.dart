@@ -11,19 +11,24 @@ import 'package:pinput/pinput.dart';
 class CustomTextField extends StatefulWidget {
   CustomTextField({
     super.key,
-    required this.label,
+    this.label,
     required this.hint,
     this.initialValue = '',
     this.obscureText,
+    this.suffix,
+    this.suffixIconString,
     this.validationType,
     this.keyboardType,
     required this.onChanged,
     required this.textEditingController,
+    this.expands,
   });
 
-  final String label, hint;
+  final String? label;
+  final String hint;
   final String initialValue;
-  bool? obscureText;
+  final String? suffixIconString;
+  bool? obscureText, suffix, expands;
   TextInputType? keyboardType;
   final ValidationType? validationType;
   final ValueChanged<String> onChanged;
@@ -39,48 +44,53 @@ class _CustomTextFieldState extends State<CustomTextField> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          children: [
-            Text(
-              widget.label,
-              style: AppTextStyles.body2.copyWith(
-                color: AppColors.black_900,
-              ),
-            ),
-            const Spacing(width: 4),
-            if (widget.validationType == null)
-              const SizedBox()
-            else if (widget.validationType == ValidationType.valid)
-              SvgPicture.asset(
-                "assets/icons/checked_filled.svg",
-                height: 16.h,
-                width: 16.w,
-                colorFilter: const ColorFilter.mode(
-                  AppColors.green_700,
-                  BlendMode.srcIn,
-                ),
-              )
-            else
-              SvgPicture.asset(
-                "assets/icons/cancel_filled.svg",
-                height: 16.h,
-                width: 16.w,
-                colorFilter: const ColorFilter.mode(
-                  AppColors.red_700,
-                  BlendMode.srcIn,
+        if (widget.label != null)
+          Row(
+            children: [
+              Text(
+                widget.label ?? '',
+                style: AppTextStyles.body2.copyWith(
+                  color: AppColors.black_900,
                 ),
               ),
-          ],
-        ),
+              const Spacing(width: 4),
+              if (widget.validationType == null)
+                const SizedBox()
+              else if (widget.validationType == ValidationType.valid)
+                SvgPicture.asset(
+                  "assets/icons/checked_filled.svg",
+                  height: 16.h,
+                  width: 16.w,
+                  colorFilter: const ColorFilter.mode(
+                    AppColors.green_700,
+                    BlendMode.srcIn,
+                  ),
+                )
+              else
+                SvgPicture.asset(
+                  "assets/icons/cancel_filled.svg",
+                  height: 16.h,
+                  width: 16.w,
+                  colorFilter: const ColorFilter.mode(
+                    AppColors.red_700,
+                    BlendMode.srcIn,
+                  ),
+                ),
+            ],
+          ),
         const Spacing(height: 6),
         TextFormField(
           // initialValue: initialValue,
           style: AppTextStyles.body2,
-          keyboardType: widget.keyboardType ?? TextInputType.text,
+          keyboardType: widget.expands == true
+              ? TextInputType.multiline
+              : widget.keyboardType ?? TextInputType.text,
           obscureText: widget.obscureText ?? false,
           obscuringCharacter: '*',
           onChanged: widget.onChanged,
           controller: widget.textEditingController,
+          minLines: widget.expands == true ? 1 : 1,
+          maxLines: widget.expands == true ? 5 : 1,
           decoration: InputDecoration(
             filled: true,
             fillColor: AppColors.primary_100,
@@ -107,7 +117,17 @@ class _CustomTextFieldState extends State<CustomTextField> {
                       ),
                     ),
                   )
-                : null,
+                : widget.suffix != null
+                    ? SvgPicture.asset(
+                        widget.suffixIconString ?? '',
+                        height: 20.h,
+                        width: 20.w,
+                        colorFilter: const ColorFilter.mode(
+                          AppColors.black_500,
+                          BlendMode.srcIn,
+                        ),
+                      )
+                    : null,
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8.r),
               borderSide: BorderSide.none,
@@ -135,6 +155,91 @@ class _CustomTextFieldState extends State<CustomTextField> {
           ),
         ),
       ],
+    );
+  }
+}
+
+class CustomSearchField extends StatefulWidget {
+  const CustomSearchField({
+    super.key,
+    required this.hint,
+    required this.onChanged,
+    required this.textEditingController,
+  });
+
+  final String hint;
+  final ValueChanged<String> onChanged;
+  final TextEditingController textEditingController;
+
+  @override
+  State<CustomSearchField> createState() => _CustomSearchFieldState();
+}
+
+class _CustomSearchFieldState extends State<CustomSearchField> {
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      style: AppTextStyles.body2,
+      onChanged: widget.onChanged,
+      controller: widget.textEditingController,
+      decoration: InputDecoration(
+        filled: true,
+        fillColor: AppColors.primary_100,
+        hintText: widget.hint,
+        hintStyle: AppTextStyles.body2.copyWith(
+          color: AppColors.black_500,
+        ),
+        prefixIconConstraints: BoxConstraints(
+          minWidth: 20.w,
+          minHeight: 20.h,
+        ),
+        prefixIcon: Padding(
+          padding: EdgeInsets.only(left: 16.w, right: 6.w),
+          child: SvgPicture.asset(
+            "assets/icons/search.svg",
+            height: 20.h,
+            width: 20.w,
+            colorFilter: const ColorFilter.mode(
+              AppColors.black_500,
+              BlendMode.srcIn,
+            ),
+          ),
+        ),
+        suffixIconConstraints: BoxConstraints(
+          minWidth: 20.w,
+          minHeight: 20.h,
+        ),
+        suffixIcon: Padding(
+          padding: EdgeInsets.only(left: 6.w, right: 16.w),
+          child: GestureDetector(
+            onTap: () {
+              widget.textEditingController.clear();
+            },
+            child: SvgPicture.asset(
+              "assets/icons/cancel_filled.svg",
+              height: 20.h,
+              width: 20.w,
+              colorFilter: const ColorFilter.mode(
+                AppColors.black_500,
+                BlendMode.srcIn,
+              ),
+            ),
+          ),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8.r),
+          borderSide: BorderSide.none,
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: const BorderSide(
+            color: AppColors.primary_700,
+          ),
+          borderRadius: BorderRadius.all(
+            Radius.circular(8.r),
+          ),
+        ),
+        contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+      ),
     );
   }
 }
